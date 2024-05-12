@@ -7,6 +7,7 @@ import Telefone from "./telefone"
 
 export default class Cliente {
     public nome: string
+    public id: number
     public nomeSocial: string
     private cpf: CPF
     private rgs: Array<RG>
@@ -15,10 +16,11 @@ export default class Cliente {
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
     private pets: Array<Pet>
-    constructor(nome: string, nomeSocial: string, cpf: CPF) {
+    constructor(nome: string, nomeSocial: string, cpf: CPF, id: number) {
         this.nome = nome
         this.nomeSocial = nomeSocial
         this.cpf = cpf
+        this.id = id
         this.rgs = []
         this.dataCadastro = new Date()
         this.telefones = []
@@ -28,6 +30,9 @@ export default class Cliente {
     }
     public get getCpf(): CPF {
         return this.cpf
+    }
+    public get getId(): number {
+        return this.id;
     }
     public get getRgs(): Array<RG> {
         return this.rgs
@@ -46,5 +51,14 @@ export default class Cliente {
     }
     public get getPets(): Array<Pet>{
         return this.pets
+    }
+    public addRG(rg: RG): void {
+        this.rgs.push(rg);
+    }
+    public addTelefone(telefone: Telefone): void {
+        this.telefones.push(telefone);
+    }
+    public addPet(pet: Pet): void {
+        this.pets.push(pet);
     }
 }
