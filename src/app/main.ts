@@ -9,18 +9,19 @@ import ListagemProdutos from "../negocio/listagemProdutos";
 import ListagemPets from "../negocio/listagemPets";
 import DelecaoPet from "../negocio/delecaoPet";
 import DelecaoCliente from "../negocio/delecaoCliente";
+import AtualizacaoPet from "../negocio/atualizacaoPet";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
 let execucao = true
 
 while (execucao) {
-    console.log(`Opções:`);
+    console.log(`\nOpções:`);
     console.log(`1 - Cadastro`);
     console.log(`2 - Listagem`);
-    console.log(`3 - Editar`);
+    console.log(`3 - Atualizar`);
     console.log(`4 - Deletar`);
-    console.log(`0 - Sair`);
+    console.log(`0 - Sair\n`);
 
     let entrada = new Entrada()
     let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -32,7 +33,7 @@ while (execucao) {
                 console.log(`1 - Cadastrar cliente`);
                 console.log(`2 - Cadastrar produto`);
                 console.log(`3 - Cadastrar pet`);
-                console.log(`0 - Voltar`);
+                console.log(`0 - Voltar\n`);
                 
                 subOpcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
 
@@ -53,7 +54,7 @@ while (execucao) {
                         console.log(`Voltando ao menu principal`)
                         break;
                     default:
-                        console.log(`Operação não entendida :(`)
+                        console.log(`\nOperação não entendida :(`)
                 }
             } while (subOpcao != 0)
             break;
@@ -64,7 +65,7 @@ while (execucao) {
                 console.log(`1 - Listar todos os clientes`);
                 console.log(`2 - Listar todos os pets`);
                 console.log(`3 - Todos os produtos`);
-                console.log(`0 - Voltar`);
+                console.log(`0 - Voltar\n`);
                 
                 subOpcao2 = entrada.receberNumero(`Por favor, escolha uma opção: `)
 
@@ -85,12 +86,41 @@ while (execucao) {
                         console.log(`Voltando ao menu principal`)
                         break;
                     default:
-                        console.log(`Operação não entendida :(`)
+                        console.log(`\nOperação não entendida :(`)
                 }
             } while (subOpcao2 != 0)
             break;
 
         case 3:
+            let subOpcao3: number;
+            do {
+                console.log(`1 - Atualizar cliente`);
+                console.log(`2 - Atualizar pet`);
+                console.log(`3 - Atualizar produto`);
+                console.log(`4 - Atualizar serviço`);
+                console.log(`0 - Voltar\n`);
+
+                subOpcao3 = entrada.receberNumero(`Por favor, escolha uma opção: `)
+
+                switch(subOpcao3) {
+                    case 1:
+
+                    case 2:
+                        let atualizacaoPet = new AtualizacaoPet(empresa.getPets, empresa.getClientes)
+                        atualizacaoPet.atualizar()
+                        break;
+                    case 3:
+
+                    case 4:
+
+                    case 0:
+                        console.log(`Voltando ao menu principal`)
+                        break;
+                    default:
+                        console.log(`\nOperação não entendida :(`)
+                }
+            } while (subOpcao3 != 0)
+            break;
 
         case 4:
             let subOpcao4: number;
@@ -99,7 +129,7 @@ while (execucao) {
                 console.log(`2 - Deletar pet`);
                 console.log(`3 - Deletar produto`);
                 console.log(`3 - Deletar serviço`);
-                console.log(`0 - Voltar`);
+                console.log(`0 - Voltar\n`);
                 
                 subOpcao4 = entrada.receberNumero(`Por favor, escolha uma opção: `)
 
@@ -120,16 +150,16 @@ while (execucao) {
                         console.log(`Voltando ao menu principal`)
                         break;
                     default:
-                        console.log(`Operação não entendida :(`)
+                        console.log(`\nOperação não entendida :(`)
                 }
             } while (subOpcao4 != 0)
             break;
 
         case 0:
             execucao = false
-            console.log(`Até mais`)
+            console.log(`\nAté mais`)
             break;
         default:
-            console.log(`Operação não entendida :(`)
+            console.log(`\nOperação não entendida :(`)
     }
 }

@@ -37,5 +37,5 @@ export default class Pet {
     setIdDono(novoIdDono: number) {
         this.idDono = novoIdDono;
     }
-    
+
 }
