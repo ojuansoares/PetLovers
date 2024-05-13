@@ -11,18 +11,20 @@ export default class Cliente {
     public nomeSocial: string
     private cpf: CPF
     private rgs: Array<RG>
-    private dataCadastro: Date
+    private dataCadastro: string
+    private horaCadastro: string
     private telefones: Array<Telefone>
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
     private pets: Array<Pet>
-    constructor(nome: string, nomeSocial: string, cpf: CPF, id: number) {
+    constructor(dataCadastro: string, horaCadastro: string, nome: string, nomeSocial: string, cpf: CPF, id: number) {
         this.nome = nome
         this.nomeSocial = nomeSocial
         this.cpf = cpf
         this.id = id
         this.rgs = []
-        this.dataCadastro = new Date()
+        this.dataCadastro = dataCadastro
+        this.horaCadastro = horaCadastro
         this.telefones = []
         this.produtosConsumidos = []
         this.servicosConsumidos = []
@@ -37,8 +39,11 @@ export default class Cliente {
     public get getRgs(): Array<RG> {
         return this.rgs
     }
-    public get getDataCadastro(): Date {
+    public get getDataCadastro(): string {
         return this.dataCadastro
+    }
+    public get getHoraCadastro(): string {
+        return this.horaCadastro
     }
     public get getTelefones(): Array<Telefone> {
         return this.telefones
