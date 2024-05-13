@@ -21,4 +21,21 @@ export default class Pet {
     public get getGenero(){return this.genero}
     public get getTipo(){return this.tipo}
     public get getIdDono(){return this.idDono}
+
+    setNome(novoNome: string) {
+        this.nome = novoNome;
+    }
+    setRaca(novaRaca: string) {
+        this.raca = novaRaca;
+    }
+    setGenero(novoGenero: string) {
+        this.genero = novoGenero;
+    }
+    setTipo(novoTipo: string) { 
+        this.tipo = novoTipo;
+    }
+    setIdDono(novoIdDono: number) {
+        this.idDono = novoIdDono;
+    }
+    
 }
