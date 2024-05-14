@@ -29,9 +29,16 @@ export default class Cliente {
         this.produtosConsumidos = []
         this.servicosConsumidos = []
         this.pets = []
+        
     }
     public get getCpf(): CPF {
         return this.cpf
+    }
+    public get getNome(): string {
+        return this.nome
+    }
+    public get getNomeSocial(): string {
+        return this.nomeSocial
     }
     public get getId(): number {
         return this.id;
@@ -66,4 +73,24 @@ export default class Cliente {
     public addPet(pet: Pet): void {
         this.pets.push(pet);
     }
+
+    setNome(novoNome: string) {
+        this.nome = novoNome;
+    }
+    setNomeSocial(novoNomeSocial: string) {
+        this.nomeSocial = novoNomeSocial;
+    }
+    setCpf(novoCpf: CPF) {
+        this.cpf = novoCpf;
+    }
+    setId(novoId: number) {
+        this.id = novoId;
+    }
+    setRgs(novosRgs: Array<RG>) {
+        this.rgs = novosRgs;
+    }
+    setTelefone(novoTelefone: Array<Telefone>) {
+        this.telefones = novoTelefone;
+    }
+    
 }

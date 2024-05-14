@@ -10,6 +10,7 @@ import ListagemPets from "../negocio/listagemPets";
 import DelecaoPet from "../negocio/delecaoPet";
 import DelecaoCliente from "../negocio/delecaoCliente";
 import AtualizacaoPet from "../negocio/atualizacaoPet";
+import AtualizacaoCliente from "../negocio/atualizacaoCliente";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -94,7 +95,7 @@ while (execucao) {
         case 3:
             let subOpcao3: number;
             do {
-                console.log(`1 - Atualizar cliente`);
+                console.log(`1 - Atualizar cliente`); 
                 console.log(`2 - Atualizar pet`);
                 console.log(`3 - Atualizar produto`);
                 console.log(`4 - Atualizar serviço`);
@@ -104,15 +105,17 @@ while (execucao) {
 
                 switch(subOpcao3) {
                     case 1:
-
+                        let atualizacaoCliente = new AtualizacaoCliente(empresa.getClientes)
+                        atualizacaoCliente.atualizar()
+                        break;
                     case 2:
                         let atualizacaoPet = new AtualizacaoPet(empresa.getPets, empresa.getClientes)
                         atualizacaoPet.atualizar()
                         break;
                     case 3:
-
+                        break;
                     case 4:
-
+                        break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
                         break;
