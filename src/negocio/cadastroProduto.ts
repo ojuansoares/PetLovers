@@ -1,6 +1,7 @@
 import Entrada from "../io/entrada"
 import Produto from "../modelo/produto"
 import Cadastro from "./cadastro"
+import ID from "../modelo/id"
 
 export default class CadastroProduto extends Cadastro{
     private entrada: Entrada

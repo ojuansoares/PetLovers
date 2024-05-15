@@ -16,10 +16,37 @@ export default class CadastroPet extends Cadastro {
 
     public cadastrar(): void {
         console.log(`\nInício do cadastro do pet`);
-        let nome = this.entrada.receberTexto(`Por favor informe o nome do pet: `)
-        let raca = this.entrada.receberTexto(`Digite a raça do pet: `)
-        let genero = this.entrada.receberTexto(`Digite o gênero do pet: `)
-        let tipo = this.entrada.receberTexto(`Digite o tipo do pet: `)
+        let nome: string;
+        do {
+            nome = this.entrada.receberTexto(`Por favor informe o nome do pet: `);
+            if (nome === '' || /\d/.test(nome) || /[^a-zA-Z\s]/.test(nome)) {
+                console.log("Nome inválido. Por favor, insira um nome válido.");
+            }
+        } while (nome === '' || /\d/.test(nome) || /[^a-zA-Z\s]/.test(nome));
+
+        let raca: string;
+        do {
+            raca = this.entrada.receberTexto(`Digite a raça do pet: `);
+            if (raca === '' || /\d/.test(raca) || /[^a-zA-Z\s]/.test(raca)) {
+                console.log("Raça inválida. Por favor, insira uma raça válida.");
+            }
+        } while (raca === '' || /\d/.test(raca) || /[^a-zA-Z\s]/.test(raca));
+
+        let genero: string;
+        do {
+            genero = this.entrada.receberTexto(`Digite o gênero do pet: `);
+            if (genero === '' || /\d/.test(genero) || /[^a-zA-Z\s]/.test(genero)) {
+                console.log("Gênero inválido. Por favor, insira um gênero válido.");
+            }
+        } while (genero === '' || /\d/.test(genero) || /[^a-zA-Z\s]/.test(genero));
+
+        let tipo: string;
+        do {
+            tipo = this.entrada.receberTexto(`Digite o tipo do pet: `);
+            if (tipo === '' || /\d/.test(tipo) || /[^a-zA-Z\s]/.test(tipo)) {
+                console.log("Tipo inválido. Por favor, insira um tipo válido.");
+            }
+        } while (tipo === '' || /\d/.test(tipo) || /[^a-zA-Z\s]/.test(tipo));
         let id = Number(this.pets.length + 1)
         let idDono: number;
         let cliente;

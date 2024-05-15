@@ -81,7 +81,6 @@ export default class AtualizacaoCliente extends Atualizacao {
                 } while (true);
     
             // Atualização de RGs
-            // Atualização de RGs
             let rgs = cliente.getRgs;
             let execucao = true;
 
@@ -106,7 +105,7 @@ export default class AtualizacaoCliente extends Atualizacao {
                     break;
                 }
 
-                // Solicitar novo RG e validar
+                // Solicitação RG e Validação
                 let valorrg: string;
                 let rgExistente: boolean;
                 do {
@@ -137,7 +136,6 @@ export default class AtualizacaoCliente extends Atualizacao {
                 } while (diarg < 1 || diarg > 31 || mesrg < 1 || mesrg > 12 || anorg < 1900 || (diarg > diaAtual && mesrg > mesAtual && anorg > anoAtual) || (diarg > diaAtual && mesrg > mesAtual && anorg == anoAtual) || (diarg > diaAtual && mesrg == mesAtual && anorg == anoAtual) ||(mesrg > mesAtual && anorg == anoAtual) || anorg > anoAtual)
                     
                 mesrg = mesrg -1
-                // Atualizar RG
                 let dataEmissaorg = new Date(anorg, mesrg, diarg);
                 let novoRG = new RG(valorrg, dataEmissaorg);
                 rgs[indiceRG] = novoRG;
@@ -146,7 +144,7 @@ export default class AtualizacaoCliente extends Atualizacao {
                 break;
             }
     
-            // Atualização de telefones
+            // Atualização Telefone
             let execucao2 = true;
             let telefones = cliente.getTelefones;
             while (execucao2) {

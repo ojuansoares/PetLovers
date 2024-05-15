@@ -61,12 +61,12 @@ export default class AtualizacaoPet extends Atualizacao {
             } while (!clienteNovo)
 
             if (clienteNovo) {
-                // Atualiza o dono do pet
+                // Atualização Dono
                 pet.setIdDono(novoIdDono);
                 clienteNovo.addPet(pet);
                 console.log(`\nPet atualizado com sucesso!\n`);
 
-                // Remove o pet do dono antigo
+                // Remoção Dono Antigo
                 let donoAntigo = this.clientes.find(cliente => cliente.id == idDonoAntigo);
                 if (donoAntigo) {
                     let petDonoIndex = donoAntigo.getPets.findIndex(petDono => petDono.getId == id);

@@ -19,8 +19,22 @@ export default class CadastroCliente extends Cadastro {
         let mesAtual = dataAtual.getMonth() + 1
         let anoAtual = dataAtual.getFullYear();
         console.log(`\nInício do cadastro do cliente`);
-        let nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
-        let nomeSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `)
+
+        let nome: string;
+        do {
+            nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `);
+            if (nome === '' || /\d/.test(nome) || /[^a-zA-Z\s]/.test(nome)) {
+                console.log("Nome inválido. Por favor, insira um nome válido.");
+            }
+        } while (nome === '' || /\d/.test(nome) || /[^a-zA-Z\s]/.test(nome));
+
+        let nomeSocial: string;
+        do {
+            nomeSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `);
+            if (nomeSocial === '' || /\d/.test(nomeSocial) || /[^a-zA-Z\s]/.test(nomeSocial)) {
+                console.log("Nome inválido. Por favor, insira um nome válido.");
+            }
+        } while (nomeSocial === '' || /\d/.test(nomeSocial) || /[^a-zA-Z\s]/.test(nomeSocial));
 
         // CPF
 
