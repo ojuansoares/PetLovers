@@ -64,6 +64,36 @@ export default class Cliente {
     public get getPets(): Array<Pet>{
         return this.pets
     }
+    public get totalQuantidadeConsumida(): number {
+        return this.produtosConsumidos.length + this.servicosConsumidos.length;
+    }
+    public get valorTotalConsumido(): number {
+        let totalProdutos = this.produtosConsumidos.reduce((total, produto) => total + Number(produto.getValor), 0);
+        let totalServicos = this.servicosConsumidos.reduce((total, servico) => total + Number(servico.getValor), 0);
+        return totalProdutos + totalServicos;
+    }
+    public get produtosMaisConsumidos(): { [nome: string]: number } {
+        let contadorProdutos: { [nome: string]: number } = {};
+        this.produtosConsumidos.forEach(produto => {
+            if (contadorProdutos[produto.getNome]) {
+                contadorProdutos[produto.getNome]++;
+            } else {
+                contadorProdutos[produto.getNome] = 1;
+            }
+        });
+        return contadorProdutos;
+    }
+    public get servicosMaisConsumidos(): { [nome: string]: number } {
+        let contadorServicos: { [nome: string]: number } = {};
+        this.servicosConsumidos.forEach(servico => {
+            if (contadorServicos[servico.getNome]) {
+                contadorServicos[servico.getNome]++;
+            } else {
+                contadorServicos[servico.getNome] = 1;
+            }
+        });
+        return contadorServicos;
+    }
     public addRG(rg: RG): void {
         this.rgs.push(rg);
     }

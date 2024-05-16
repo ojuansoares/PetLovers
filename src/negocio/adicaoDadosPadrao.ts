@@ -83,7 +83,7 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     let servico12 = new Servico(12, "Consulta Veterinária", "Consulta veterinária para cães e gatos", "240.00");
     servicos.push(servico12);
 
-    let cliente1 = new Cliente("01/01/2022", "10:00", "Cliente1", "Cliente1 Social", new CPF("12345678901", new Date()), 1);
+    let cliente1 = new Cliente("01/01/2022", "10:00", "Sheila", "Sheilinha", new CPF("12345678901", new Date()), 1);
     cliente1.addRG(new RG("RG123456", new Date("2022-12-02")));
     cliente1.addTelefone(new Telefone("11", "123456789"));
     cliente1.addProdutoConsumido(produtos[0]);
@@ -91,7 +91,7 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente1.addPet(pets[0]);
     clientes.push(cliente1);
 
-    let cliente2 = new Cliente("02/01/2022", "11:00", "Cliente2", "Cliente2 Social", new CPF("23456789012", new Date()), 2);
+    let cliente2 = new Cliente("02/01/2022", "11:00", "Gilberto", "Gil", new CPF("23456789012", new Date()), 2);
     cliente2.addRG(new RG("RG234567", new Date()));
     cliente2.addTelefone(new Telefone("22", "234567890"));
     cliente2.addProdutoConsumido(produtos[1]);
@@ -103,6 +103,8 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente3.addRG(new RG("RG345678", new Date()));
     cliente3.addTelefone(new Telefone("33", "345678901"));
     cliente3.addProdutoConsumido(produtos[2]);
+    cliente3.addProdutoConsumido(produtos[0]);
+    cliente3.addProdutoConsumido(produtos[1]);
     cliente3.addServicoConsumido(servicos[2]);
     cliente3.addPet(pets[2]);
     clientes.push(cliente3);
@@ -135,6 +137,8 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente7.addRG(new RG("RG789012", new Date()));
     cliente7.addTelefone(new Telefone("77", "789012345"));
     cliente7.addProdutoConsumido(produtos[6]);
+    cliente7.addProdutoConsumido(produtos[2]);
+    cliente7.addProdutoConsumido(produtos[3]);
     cliente7.addServicoConsumido(servicos[6]);
     cliente7.addPet(pets[6]);
     clientes.push(cliente7);
@@ -151,7 +155,9 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente9.addRG(new RG("RG901234", new Date()));
     cliente9.addTelefone(new Telefone("99", "901234567"));
     cliente9.addProdutoConsumido(produtos[8]);
+    cliente9.addProdutoConsumido(produtos[4]);
     cliente9.addServicoConsumido(servicos[8]);
+    cliente9.addServicoConsumido(servicos[5]);
     cliente9.addPet(pets[8]);
     clientes.push(cliente9);
     
@@ -160,6 +166,7 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente10.addTelefone(new Telefone("100", "012345678"));
     cliente10.addProdutoConsumido(produtos[9]);
     cliente10.addServicoConsumido(servicos[9]);
+    cliente10.addServicoConsumido(servicos[2]);
     cliente10.addPet(pets[9]);
     clientes.push(cliente10);
     
@@ -167,7 +174,11 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     cliente11.addRG(new RG("RG123456", new Date()));
     cliente11.addTelefone(new Telefone("111", "123456789"));
     cliente11.addProdutoConsumido(produtos[10]);
+    cliente11.addProdutoConsumido(produtos[5]);
+    cliente11.addProdutoConsumido(produtos[1]);
+    cliente11.addProdutoConsumido(produtos[9]);
     cliente11.addServicoConsumido(servicos[10]);
+    cliente11.addServicoConsumido(servicos[7]);
     cliente11.addPet(pets[10]);
     clientes.push(cliente11);
 
@@ -203,7 +214,52 @@ export function adicionarDadosPadrao(clientes: Array<Cliente>, produtos: Array<P
     historico.push(historico11);
     let historico12 = new Historico(12, clientes[11].getNome, produtos[11].getNome, pets[11].getNome, produtos[11].getValor, "12/01/2022", "21:00");
     historico.push(historico12);
-
+    let historico13 = new Historico(13, clientes[2].getNome, produtos[0].getNome, pets[2].getNome, produtos[0].getValor, "21/01/2022", "16:00");
+    historico.push(historico13);
+    let historico14 = new Historico(14, clientes[2].getNome, produtos[1].getNome, pets[2].getNome, produtos[1].getValor, "22/01/2022", "17:00");
+    historico.push(historico14);
+    let historico15 = new Historico(15, clientes[6].getNome, produtos[2].getNome, pets[6].getNome, produtos[2].getValor, "23/01/2022", "18:00");
+    historico.push(historico15);
+    let historico16 = new Historico(16, clientes[6].getNome, produtos[3].getNome, pets[6].getNome, produtos[3].getValor, "24/01/2022", "19:00");
+    historico.push(historico16);
+    let historico17 = new Historico(17, clientes[8].getNome, produtos[4].getNome, pets[8].getNome, produtos[4].getValor, "25/01/2022", "20:00");
+    historico.push(historico17);
+    let historico18 = new Historico(18, clientes[10].getNome, produtos[5].getNome, pets[10].getNome, produtos[5].getValor, "26/01/2022", "21:00");
+    historico.push(historico18); 
+    let historico19 = new Historico(19, clientes[10].getNome, produtos[1].getNome, pets[10].getNome, produtos[1].getValor, "26/01/2022", "21:00");
+    historico.push(historico19);
+    let historico20 = new Historico(20, clientes[10].getNome, produtos[9].getNome, pets[10].getNome, produtos[9].getValor, "27/01/2022", "10:00");
+    historico.push(historico20);
+    let historico21 = new Historico(21, clientes[0].getNome, servicos[0].getNome, pets[0].getNome, servicos[0].getValor, "01/01/2022", "10:00");
+    historico.push(historico21);
+    let historico22 = new Historico(22, clientes[1].getNome, servicos[1].getNome, pets[1].getNome, servicos[1].getValor, "02/01/2022", "11:00");
+    historico.push(historico22);
+    let historico23 = new Historico(23, clientes[2].getNome, servicos[2].getNome, pets[2].getNome, servicos[2].getValor, "03/01/2022", "11:00");
+    historico.push(historico23);
+    let historico24 = new Historico(24, clientes[3].getNome, servicos[3].getNome, pets[3].getNome, servicos[3].getValor, "04/01/2022", "11:00");
+    historico.push(historico24);
+    let historico25 = new Historico(25, clientes[4].getNome, servicos[4].getNome, pets[4].getNome, servicos[4].getValor, "05/01/2022", "11:00");
+    historico.push(historico25);
+    let historico26 = new Historico(26, clientes[5].getNome, servicos[5].getNome, pets[5].getNome, servicos[5].getValor, "06/01/2022", "11:00");
+    historico.push(historico26);
+    let historico27 = new Historico(27, clientes[6].getNome, servicos[6].getNome, pets[6].getNome, servicos[6].getValor, "07/01/2022", "11:00");
+    historico.push(historico27);
+    let historico28 = new Historico(28, clientes[7].getNome, servicos[7].getNome, pets[7].getNome, servicos[7].getValor, "08/01/2022", "11:00");
+    historico.push(historico28);
+    let historico29 = new Historico(29, clientes[8].getNome, servicos[8].getNome, pets[8].getNome, servicos[8].getValor, "09/01/2022", "11:00");
+    historico.push(historico29);
+    let historico30 = new Historico(30, clientes[9].getNome, servicos[9].getNome, pets[9].getNome, servicos[9].getValor, "10/01/2022", "11:00");
+    historico.push(historico30);
+    let historico31 = new Historico(31, clientes[10].getNome, servicos[10].getNome, pets[10].getNome, servicos[10].getValor, "11/01/2022", "11:00");
+    historico.push(historico31);
+    let historico32 = new Historico(32, clientes[11].getNome, servicos[11].getNome, pets[11].getNome, servicos[11].getValor, "12/01/2022", "11:00");
+    historico.push(historico32);
+    let historico33 = new Historico(33, clientes[10].getNome, servicos[7].getNome, pets[10].getNome, servicos[7].getValor, "13/01/2022", "11:00");
+    historico.push(historico33);
+    let historico34 = new Historico(34, clientes[9].getNome, servicos[2].getNome, pets[9].getNome, servicos[2].getValor, "14/01/2022", "11:00");
+    historico.push(historico34);
+    let historico35 = new Historico(35, clientes[8].getNome, servicos[5].getNome, pets[8].getNome, servicos[5].getValor, "15/01/2022", "11:00");
+    historico.push(historico35);
 }
 
 let clientes: Array<Cliente> = [];

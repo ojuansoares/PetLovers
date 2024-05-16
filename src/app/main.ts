@@ -11,6 +11,10 @@ import ListagemProdutos from "../negocio/listagemProdutos";
 import ListagemServicos from "../negocio/listagemServicos";
 import ListagemPets from "../negocio/listagemPets";
 import ListagemHistorico from "../negocio/listagemHistorico";
+import ListagemTop10Quantidade from "../negocio/listagemTop10Quantidade";
+import ListagemTop5Valor from "../negocio/listagemTop5Valor";
+import ListagemMaisConsumidos from "../negocio/listagemSPMaisConsumidos";
+import ListagemPorTipoRaca from "../negocio/listagemTipoRacaMaisConsumidos";
 import DelecaoPet from "../negocio/delecaoPet";
 import DelecaoCliente from "../negocio/delecaoCliente";
 import DelecaoProduto from "../negocio/delecaoProduto";
@@ -90,6 +94,10 @@ while (execucao) {
                 console.log(`3 - Listar todos os produtos`);
                 console.log(`4 - Listar todos os serviços`);
                 console.log(`5 - Listar histórico de compras`);
+                console.log(`6 - Listar top 10 clientes que mais consumiram (quantidade)`);
+                console.log(`7 - Listar serviços ou produtos mais consumidos`);
+                console.log(`8 - Listar serviços ou produtos mais consumidos por tipo e raça de pet`);
+                console.log(`9 - Listar top 5 clientes que mais consumiram (valor)`);
                 console.log(`0 - Voltar\n`);
                 
                 subOpcao2 = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -114,6 +122,22 @@ while (execucao) {
                     case 5:
                         let listagemHistorico = new ListagemHistorico(empresa.getHistorico)
                         listagemHistorico.listar()
+                        break;
+                    case 6:
+                        let listagemTop10Quantidade = new ListagemTop10Quantidade(empresa.getClientes)
+                        listagemTop10Quantidade.listar()
+                        break;
+                    case 7:
+                        let listagemMaisConsumidos = new ListagemMaisConsumidos(empresa.getClientes)
+                        listagemMaisConsumidos.listar()
+                        break;
+                    case 8:
+                        let listagemPorTipoRaca = new ListagemPorTipoRaca(empresa.getClientes)
+                        listagemPorTipoRaca.listar()
+                        break;
+                    case 9:
+                        let listagemTop5Valor = new ListagemTop5Valor(empresa.getClientes)
+                        listagemTop5Valor.listar()
                         break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
