@@ -27,22 +27,42 @@ export default class AtualizacaoCliente extends Atualizacao {
     
         if (clienteIndex !== -1) {
             let cliente = this.clientes[clienteIndex];
-    
-            let novoNome = this.entrada.receberTexto(`Informe o novo nome do cliente (deixe em branco para não alterar): `);
+
+            let novoNome: string;
+            do {
+                novoNome = this.entrada.receberTexto(`Informe o novo nome do cliente (deixe em branco para não atualizar): `);
+                if (novoNome === '') {
+                    break;
+                }
+                if (novoNome !== '' && (/\d/.test(novoNome) || /[^a-zA-Z\s]/.test(novoNome))) {
+                    console.log("Nome inválido. Por favor, insira um nome válido.");
+                }
+            } while (novoNome !== '' && (/\d/.test(novoNome) || /[^a-zA-Z\s]/.test(novoNome)));
             if (novoNome !== '') {
                 cliente.setNome(novoNome);
             }
     
-            let novoNomeSocial = this.entrada.receberTexto(`Informe o novo nome social do cliente (deixe em branco para não alterar): `);
+            let novoNomeSocial: string;
+            do {
+                novoNomeSocial = this.entrada.receberTexto(`Informe o novo nome social do cliente (deixe em branco para não atualizar): `);
+                if (novoNomeSocial === '') {
+                    break;
+                }
+                if (novoNomeSocial !== '' && (/\d/.test(novoNomeSocial) || /[^a-zA-Z\s]/.test(novoNomeSocial))) {
+                    console.log("Nome social inválido. Por favor, insira um nome social válido.");
+                }
+            } while (novoNomeSocial !== '' && (/\d/.test(novoNomeSocial) || /[^a-zA-Z\s]/.test(novoNomeSocial)));
             if (novoNomeSocial !== '') {
                 cliente.setNomeSocial(novoNomeSocial);
             }
-                let sair = false;
+
+            let sair = false;
+
                 do {
                     let novoCPF: string;
                     let cpfExistente: boolean;
                     do {
-                        novoCPF = this.entrada.receberTexto(`Informe o novo CPF do cliente (deixe em branco para não alterar): `);
+                        novoCPF = this.entrada.receberTexto(`Informe o novo CPF do cliente (deixe em branco para não atualizar): `);
                         if (novoCPF === '') {
                             sair = true;
                             break;
@@ -91,7 +111,7 @@ export default class AtualizacaoCliente extends Atualizacao {
 
                 let indiceRG: number;
                 do {
-                    let indiceRGInput: string = this.entrada.receberTexto(`Informe o índice do RG que deseja alterar (deixe em branco para sair): `);
+                    let indiceRGInput: string = this.entrada.receberTexto(`Informe o índice do RG que deseja atualizar (deixe em branco para sair): `);
                     indiceRG = Number(indiceRGInput) - 1;
                     if (indiceRGInput === '') {
                         execucao = false;
@@ -154,7 +174,7 @@ export default class AtualizacaoCliente extends Atualizacao {
 
                 let indiceTelefone: number;
                 do {
-                    let indiceTelefoneInput: string = this.entrada.receberTexto(`Informe o índice do telefone que deseja alterar (deixe em branco para sair): `);
+                    let indiceTelefoneInput: string = this.entrada.receberTexto(`Informe o índice do telefone que deseja atualizar (deixe em branco para sair): `);
                     indiceTelefone = Number(indiceTelefoneInput) - 1;
                     if (indiceTelefoneInput === '') {
                         execucao2 = false;

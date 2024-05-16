@@ -7,11 +7,16 @@ import CadastroServico from "../negocio/cadastroServico";
 import CadastroPet from "../negocio/cadastroPet";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemProdutos from "../negocio/listagemProdutos";
+import ListagemServicos from "../negocio/listagemServicos";
 import ListagemPets from "../negocio/listagemPets";
 import DelecaoPet from "../negocio/delecaoPet";
 import DelecaoCliente from "../negocio/delecaoCliente";
+import DelecaoProduto from "../negocio/delecaoProduto";
+import DelecaoServico from "../negocio/delecaoServico";
 import AtualizacaoPet from "../negocio/atualizacaoPet";
 import AtualizacaoCliente from "../negocio/atualizacaoCliente";
+import AtualizacaoProduto from "../negocio/atualizacaoProduto";
+import AtualizacaoServico from "../negocio/atualizacaoServico";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -71,7 +76,8 @@ while (execucao) {
             do {
                 console.log(`1 - Listar todos os clientes`);
                 console.log(`2 - Listar todos os pets`);
-                console.log(`3 - Todos os produtos`);
+                console.log(`3 - Listar todos os produtos`);
+                console.log(`4 - Listar todos os serviços`);
                 console.log(`0 - Voltar\n`);
                 
                 subOpcao2 = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -88,6 +94,10 @@ while (execucao) {
                     case 3:
                         let listagemProdutos = new ListagemProdutos(empresa.getProdutos)
                         listagemProdutos.listar()
+                        break;
+                    case 4:
+                        let listagemServicos = new ListagemServicos(empresa.getServicos)
+                        listagemServicos.listar()
                         break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
@@ -119,8 +129,12 @@ while (execucao) {
                         atualizacaoPet.atualizar()
                         break;
                     case 3:
+                        let atualizacaoProduto = new AtualizacaoProduto(empresa.getProdutos)
+                        atualizacaoProduto.atualizar()
                         break;
                     case 4:
+                        let atualizacaoServico = new AtualizacaoServico(empresa.getServicos)
+                        atualizacaoServico.atualizar()
                         break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
@@ -137,7 +151,7 @@ while (execucao) {
                 console.log(`1 - Deletar cliente`);
                 console.log(`2 - Deletar pet`);
                 console.log(`3 - Deletar produto`);
-                console.log(`3 - Deletar serviço`);
+                console.log(`4 - Deletar serviço`);
                 console.log(`0 - Voltar\n`);
                 
                 subOpcao4 = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -152,8 +166,12 @@ while (execucao) {
                         delecaoPet.deletar()
                         break;
                     case 3:
+                        let delecaoProduto = new DelecaoProduto(empresa.getProdutos)
+                        delecaoProduto.deletar()
                         break;
                     case 4:
+                        let delecaoServico = new DelecaoServico(empresa.getServicos)
+                        delecaoServico.deletar()
                         break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
