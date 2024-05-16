@@ -5,10 +5,12 @@ import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroProduto from "../negocio/cadastroProduto";
 import CadastroServico from "../negocio/cadastroServico";
 import CadastroPet from "../negocio/cadastroPet";
+import RegistroCompra from "../negocio/compraRegistro";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemProdutos from "../negocio/listagemProdutos";
 import ListagemServicos from "../negocio/listagemServicos";
 import ListagemPets from "../negocio/listagemPets";
+import ListagemHistorico from "../negocio/listagemHistorico";
 import DelecaoPet from "../negocio/delecaoPet";
 import DelecaoCliente from "../negocio/delecaoCliente";
 import DelecaoProduto from "../negocio/delecaoProduto";
@@ -41,6 +43,7 @@ while (execucao) {
                 console.log(`2 - Cadastrar pet`);
                 console.log(`3 - Cadastrar produto`);
                 console.log(`4 - Cadastrar serviço`);
+                console.log(`5 - Cadastrar compra`)
                 console.log(`0 - Voltar\n`);
                 
                 subOpcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -61,7 +64,11 @@ while (execucao) {
                     case 4:
                         let cadastroServico = new CadastroServico(empresa.getServicos)
                         cadastroServico.cadastrar()
-                        break;                 
+                        break;
+                    case 5:
+                        let cadastroCompra = new RegistroCompra(empresa.getHistorico, empresa.getClientes, empresa.getProdutos, empresa.getServicos)
+                        cadastroCompra.registrar()
+                        break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
                         break;
@@ -78,6 +85,7 @@ while (execucao) {
                 console.log(`2 - Listar todos os pets`);
                 console.log(`3 - Listar todos os produtos`);
                 console.log(`4 - Listar todos os serviços`);
+                console.log(`5 - Listar histórico de compras`);
                 console.log(`0 - Voltar\n`);
                 
                 subOpcao2 = entrada.receberNumero(`Por favor, escolha uma opção: `)
@@ -98,6 +106,10 @@ while (execucao) {
                     case 4:
                         let listagemServicos = new ListagemServicos(empresa.getServicos)
                         listagemServicos.listar()
+                        break;
+                    case 5:
+                        let listagemHistorico = new ListagemHistorico(empresa.getHistorico)
+                        listagemHistorico.listar()
                         break;
                     case 0:
                         console.log(`Voltando ao menu principal`)
