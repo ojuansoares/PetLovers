@@ -26,14 +26,16 @@ export default class RegistroCompra {
             existeSeP = false;
             console.log("Não há produtos nem serviços disponíveis no momento.\n");
         }
-        while (existeSeP) {
+        if (existeSeP) {
         console.log(`Iniciando o registro de uma compra`);
         let comprador: Cliente | undefined;
         let idComprador: number;
+        let execucao2 = true
+        while (execucao2) {
         let idCompradorInput = this.entrada.receberTexto(`Por favor informe o ID do comprador: `);
         idComprador = Number(idCompradorInput);
         comprador = this.clientes.find(cliente => cliente.getId === idComprador);
-        if (comprador) {    
+        if (comprador) {
             let recebeCompra: number;
             let tipoCompra: string = '';
             let itens: any;
@@ -109,12 +111,27 @@ export default class RegistroCompra {
 
             let id = this.historicos.length + 1
 
-            let historico = new Historico(id, comprador.getNome, item.getNome, pet, item.getValor);
+            let dataAtual = new Date();
+            let data = dataAtual.toLocaleDateString();
+            let hora = dataAtual.toLocaleTimeString();
+            
+            let historico = new Historico(id, comprador.getNome, item.getNome, pet, item.getValor, data, hora);
             this.historicos.push(historico);
 
-            console.log(`Compra registrada com sucesso.\n`);
+            if (item instanceof Produto) {
+                comprador.addProdutoConsumido(item);
+            } else if (item instanceof Servico) {
+                comprador.addServicoConsumido(item);
+            }
 
-        } else console.log(`Comprador com ID ${idComprador} não foi encontrado.\n`);
+            console.log(`Compra registrada com sucesso.\n`);
+            execucao2 = false;
+
+        } else {
+            console.log(`Comprador com ID ${idComprador} não foi encontrado.\n`);
+            execucao2 = false
+        }
+
+        }
     }
-    }
-}
+}}

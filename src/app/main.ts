@@ -19,9 +19,13 @@ import AtualizacaoPet from "../negocio/atualizacaoPet";
 import AtualizacaoCliente from "../negocio/atualizacaoCliente";
 import AtualizacaoProduto from "../negocio/atualizacaoProduto";
 import AtualizacaoServico from "../negocio/atualizacaoServico";
+import { adicionarDadosPadrao } from "../negocio/adicaoDadosPadrao";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
+
+adicionarDadosPadrao(empresa.getClientes, empresa.getProdutos, empresa.getServicos, empresa.getPets, empresa.getHistorico);
+
 let execucao = true
 
 while (execucao) {

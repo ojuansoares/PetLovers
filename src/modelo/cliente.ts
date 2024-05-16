@@ -73,6 +73,13 @@ export default class Cliente {
     public addPet(pet: Pet): void {
         this.pets.push(pet);
     }
+    public addProdutoConsumido(produto: Produto): void {
+        this.produtosConsumidos.push(produto);
+    }
+    
+    public addServicoConsumido(servico: Servico): void {
+        this.servicosConsumidos.push(servico);
+    }
 
     setNome(novoNome: string) {
         this.nome = novoNome;
