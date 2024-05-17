@@ -1,38 +1,38 @@
-import Cliente from "../modelo/cliente";
 import Listagem from "./listagem";
+import Historico from "../modelo/historico";
 import Entrada from "../io/entrada"
 
-export default class ListagemPorTipoRaca extends Listagem {
-    private clientes: Array<Cliente>
+export default class ListagemTipoRacaMaisConsumidos extends Listagem{
+    private historicos: Array<Historico>
 
-    constructor(clientes: Array<Cliente>) {
+    constructor(historicos: Array<Historico>){
         super()
-        this.clientes = clientes
+        this.historicos = historicos
     }
 
     public listar(): void {
         let entrada = new Entrada()
         let opcao: number;
         do {
-            console.log(`\nListagem dos produtos ou serviços mais consumidos:`);
+            console.log(`\nListagem dos produtos ou serviços mais consumidos por tipo e raça de pet:`);
             console.log(`\nOpções:`);
             console.log(`1 - Produtos`);
             console.log(`2 - Serviços`);
             console.log(`0 - Voltar\n`);
-    
+            
             opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
-    
-            switch (opcao) {
+
+            switch(opcao) {
                 case 1:
                     console.log("\nListagem de Produtos:");
-                    this.listarProdutosMaisConsumidosPorTipoRaca();
-                    this.listarProdutosMaisConsumidosPorTipo();
+                    this.listarItensMaisConsumidosPorTipoRaca("produto");
+                    this.listarItensMaisConsumidosPorTipo("produto");
                     opcao = 0
                     break;
                 case 2:
                     console.log("\nListagem de Serviços:");
-                    this.listarServicosMaisConsumidosPorTipoRaca();
-                    this.listarServicosMaisConsumidosPorTipo();
+                    this.listarItensMaisConsumidosPorTipoRaca("servico");
+                    this.listarItensMaisConsumidosPorTipo("servico");
                     opcao = 0
                     break;
                 case 0:
@@ -44,128 +44,56 @@ export default class ListagemPorTipoRaca extends Listagem {
         } while (opcao != 0)
     }
 
-    private listarProdutosMaisConsumidosPorTipoRaca(): void {
-        let contadorProdutos: { [tipoRaca: string]: { [nome: string]: number } } = {};
-
-        this.clientes.forEach(cliente => {
-            let produtosCliente = cliente.produtosMaisConsumidos;
-            cliente.getPets.forEach(pet => {
-                let tipoRaca = `${pet.getTipo}-${pet.getRaca}`;
-                if (!contadorProdutos[tipoRaca]) {
-                    contadorProdutos[tipoRaca] = {};
+    private listarItensMaisConsumidosPorTipoRaca(tipoCompra: string): void {
+        let contadorItens = new Map<string, Map<string, number>>();
+    
+        for (let historico of this.historicos) {
+            if (historico.getTipoCompra === tipoCompra) {
+                let compra = historico.getCompra;
+                let pet = historico.getPet;
+                if (pet !== undefined) {
+                    let contadorPorRaca = contadorItens.get(pet.getRaca) || new Map<string, number>();
+                    let total = contadorPorRaca.get(compra) || 0;
+                    contadorPorRaca.set(compra, total + 1);
+                    contadorItens.set(pet.getRaca, contadorPorRaca);
                 }
-                for (let nome in produtosCliente) {
-                    if (contadorProdutos[tipoRaca][nome]) {
-                        contadorProdutos[tipoRaca][nome] += produtosCliente[nome];
-                    } else {
-                        contadorProdutos[tipoRaca][nome] = produtosCliente[nome];
-                    }
-                }
-            });
-        });
-
-        console.log("\nProdutos mais consumidos por tipo e raça de pet:\n");
-        for (let tipoRaca in contadorProdutos) {
-            console.log(`Tipo e Raça: ${tipoRaca}`);
-            let produtosOrdenados = Object.entries(contadorProdutos[tipoRaca]).sort((a, b) => b[1] - a[1]);
-            produtosOrdenados.forEach(([nome, quantidade]) => {
-                console.log(`Produto: ${nome} - Quantidade Consumida: ${quantidade}`);
-            });
-            console.log(`-------------------------`);
+            }
         }
-        console.log(`\n`)
-    }
-
-    private listarServicosMaisConsumidosPorTipoRaca(): void {
-        let contadorServicos: { [tipoRaca: string]: { [nome: string]: number } } = {};
-
-        this.clientes.forEach(cliente => {
-            let servicosCliente = cliente.servicosMaisConsumidos;
-            cliente.getPets.forEach(pet => {
-                let tipoRaca = `${pet.getTipo}-${pet.getRaca}`;
-                if (!contadorServicos[tipoRaca]) {
-                    contadorServicos[tipoRaca] = {};
-                }
-                for (let nome in servicosCliente) {
-                    if (contadorServicos[tipoRaca][nome]) {
-                        contadorServicos[tipoRaca][nome] += servicosCliente[nome];
-                    } else {
-                        contadorServicos[tipoRaca][nome] = servicosCliente[nome];
-                    }
-                }
-            });
-        });
-
-        console.log("\nServiços mais consumidos por tipo e raça de pet:\n");
-        for (let tipoRaca in contadorServicos) {
-            console.log(`Tipo e Raça: ${tipoRaca}`);
-            let servicosOrdenados = Object.entries(contadorServicos[tipoRaca]).sort((a, b) => b[1] - a[1]);
-            servicosOrdenados.forEach(([nome, quantidade]) => {
-                console.log(`Serviço: ${nome} - Quantidade Consumida: ${quantidade}`);
+    
+        console.log(`${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}s mais consumidos por raça de pet:\n`);
+        for (let [raca, contadorPorRaca] of contadorItens.entries()) {
+            console.log(`Raça: ${raca}`);
+            let itensOrdenados = Array.from(contadorPorRaca.entries()).sort((a, b) => b[1] - a[1]);
+            itensOrdenados.forEach(([nome, quantidade]) => {
+                console.log(`${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}: ${nome} - Quantidade: ${quantidade}`);
             });
             console.log(`-------------------------`);
         }
         console.log(`\n`);
     }
 
-    private listarProdutosMaisConsumidosPorTipo(): void {
-        let contadorProdutos: { [tipo: string]: { [nome: string]: number } } = {};
+    private listarItensMaisConsumidosPorTipo(tipoCompra: string): void {
+        let contadorItens = new Map<string, Map<string, number>>();
     
-        this.clientes.forEach(cliente => {
-            let produtosCliente = cliente.produtosMaisConsumidos;
-            cliente.getPets.forEach(pet => {
-                let tipo = pet.getTipo;
-                if (!contadorProdutos[tipo]) {
-                    contadorProdutos[tipo] = {};
+        for (let historico of this.historicos) {
+            if (historico.getTipoCompra === tipoCompra) {
+                let compra = historico.getCompra;
+                let pet = historico.getPet;
+                if (pet !== undefined) {
+                    let contadorPorTipo = contadorItens.get(pet.getTipo) || new Map<string, number>();
+                    let total = contadorPorTipo.get(compra) || 0;
+                    contadorPorTipo.set(compra, total + 1);
+                    contadorItens.set(pet.getTipo, contadorPorTipo);
                 }
-                for (let nome in produtosCliente) {
-                    if (contadorProdutos[tipo][nome]) {
-                        contadorProdutos[tipo][nome] += produtosCliente[nome];
-                    } else {
-                        contadorProdutos[tipo][nome] = produtosCliente[nome];
-                    }
-                }
-            });
-        });
-    
-        console.log("\nProdutos mais consumidos por tipo de pet:\n");
-        for (let tipo in contadorProdutos) {
-            console.log(`Tipo: ${tipo}`);
-            let produtosOrdenados = Object.entries(contadorProdutos[tipo]).sort((a, b) => b[1] - a[1]);
-            produtosOrdenados.forEach(([nome, quantidade]) => {
-                console.log(`Produto: ${nome} - Quantidade Consumida: ${quantidade}`);
-            });
-            console.log(`-------------------------`);
+            }
         }
-        console.log(`\n`); 
-    }
     
-    private listarServicosMaisConsumidosPorTipo(): void {
-        let contadorServicos: { [tipo: string]: { [nome: string]: number } } = {};
-    
-        this.clientes.forEach(cliente => {
-            let servicosCliente = cliente.servicosMaisConsumidos;
-            cliente.getPets.forEach(pet => {
-                let tipo = pet.getTipo;
-                if (!contadorServicos[tipo]) {
-                    contadorServicos[tipo] = {};
-                }
-                for (let nome in servicosCliente) {
-                    if (contadorServicos[tipo][nome]) {
-                        contadorServicos[tipo][nome] += servicosCliente[nome];
-                    } else {
-                        contadorServicos[tipo][nome] = servicosCliente[nome];
-                    }
-                }
-            });
-        });
-    
-        console.log("\nServiços mais consumidos por tipo de pet:\n");
-        for (let tipo in contadorServicos) {
+        console.log(`${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}s mais consumidos por tipo de pet:\n`);
+        for (let [tipo, contadorPorTipo] of contadorItens.entries()) {
             console.log(`Tipo: ${tipo}`);
-            let servicosOrdenados = Object.entries(contadorServicos[tipo]).sort((a, b) => b[1] - a[1]);
-            servicosOrdenados.forEach(([nome, quantidade]) => {
-                console.log(`Serviço: ${nome} - Quantidade Consumida: ${quantidade}`);
+            let itensOrdenados = Array.from(contadorPorTipo.entries()).sort((a, b) => b[1] - a[1]);
+            itensOrdenados.forEach(([nome, quantidade]) => {
+                console.log(`${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}: ${nome} - Quantidade: ${quantidade}`);
             });
             console.log(`-------------------------`);
         }

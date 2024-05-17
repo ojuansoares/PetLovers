@@ -124,19 +124,19 @@ while (execucao) {
                         listagemHistorico.listar()
                         break;
                     case 6:
-                        let listagemTop10Quantidade = new ListagemTop10Quantidade(empresa.getClientes)
+                        let listagemTop10Quantidade = new ListagemTop10Quantidade(empresa.getHistorico)
                         listagemTop10Quantidade.listar()
                         break;
                     case 7:
-                        let listagemMaisConsumidos = new ListagemMaisConsumidos(empresa.getClientes)
+                        let listagemMaisConsumidos = new ListagemMaisConsumidos(empresa.getHistorico)
                         listagemMaisConsumidos.listar()
                         break;
                     case 8:
-                        let listagemPorTipoRaca = new ListagemPorTipoRaca(empresa.getClientes)
+                        let listagemPorTipoRaca = new ListagemPorTipoRaca(empresa.getHistorico)
                         listagemPorTipoRaca.listar()
                         break;
                     case 9:
-                        let listagemTop5Valor = new ListagemTop5Valor(empresa.getClientes)
+                        let listagemTop5Valor = new ListagemTop5Valor(empresa.getHistorico)
                         listagemTop5Valor.listar()
                         break;
                     case 0:

@@ -14,9 +14,13 @@ export default class ListagemHistorico extends Listagem {
         this.historicos.forEach(historico => {
             console.log(`ID Histórico: ` + historico.getId);
             console.log(`Data do registro: ` + historico.getData + ' às ' + historico.getHora);
-            console.log(`Nome do Comprador: ` + historico.getComprador);
+            console.log(`ID & Nome do Comprador: (${historico.getComprador.getId}) ${historico.getComprador.getNome}`);
             console.log(`Nome do Item: ` + historico.getCompra);
-            console.log(`Nome do Pet: ` + historico.getPet);
+            if (historico.getPet) {
+                console.log(`Nome do Pet: ` + historico.getPet.getNome);
+            } else {
+                console.log(`Nome do Pet: Sem pet associado`);
+            }
             console.log(`Valor: ` + historico.getValor);
             console.log(`--------------------------------------`);
         });

@@ -52,7 +52,7 @@ export default class RegistroCompra {
                         }
                         console.log("Você selecionou serviço.");
                         itens = this.servicos;
-                        tipoCompra = 'serviço'
+                        tipoCompra = 'servico'
                         execucao = false;
                         break;
                     case 2:
@@ -90,7 +90,7 @@ export default class RegistroCompra {
                 }
             } while (!item)
 
-            let pet = '';
+            let pet: Pet | undefined;
             if (comprador.getPets.length > 0) {
                 let idPet: number;
                 let petObj: Pet | undefined;
@@ -104,9 +104,10 @@ export default class RegistroCompra {
                     petObj = comprador.getPets.find(pet => pet.getId === idPet);
                     if (!petObj) {
                         console.log(`Pet com ID ${idPet} não foi encontrado.\n`);
+                    } else {
+                        pet = petObj;
                     }
-                } while (!petObj)
-                pet = petObj?.getNome || '';
+                } while (!pet && comprador.getPets.length > 0)
             }
 
             let id = this.historicos.length + 1
@@ -115,7 +116,7 @@ export default class RegistroCompra {
             let data = dataAtual.toLocaleDateString();
             let hora = dataAtual.toLocaleTimeString();
             
-            let historico = new Historico(id, comprador.getNome, item.getNome, pet, item.getValor, data, hora);
+            let historico = new Historico(id, comprador, item.getNome, pet, item.getValor, data, hora, tipoCompra);
             this.historicos.push(historico);
 
             if (item instanceof Produto) {

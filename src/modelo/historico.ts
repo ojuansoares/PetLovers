@@ -1,13 +1,17 @@
+import Pet from './pet';
+import Cliente from './cliente';
+
 export default class Historico {
-    private comprador: string;
+    private comprador: Cliente;
     private compra: string;
-    private pet: string;
+    private pet: Pet | undefined;
     private valor: string;
     private id: number;
     private data: string;
     private hora: string;
+    private tipoCompra: string;
 
-    constructor(id: number, comprador: string, compra: string, pet: string, valor: string, data: string, hora: string) {
+    constructor(id: number, comprador: Cliente, compra: string, pet: Pet | undefined, valor: string, data: string, hora: string, tipoCompra: string) {
         this.comprador = comprador;
         this.id = id;
         this.compra = compra;
@@ -15,6 +19,7 @@ export default class Historico {
         this.valor = valor;
         this.data = data;
         this.hora = hora;
+        this.tipoCompra = tipoCompra;
     }
 
     public get getId() {
@@ -38,17 +43,7 @@ export default class Historico {
     public get getHora() {
         return this.hora
     }
-
-    setComprador(novoComprador: string) {
-        this.comprador = novoComprador;
-    }
-    setCompra(novaCompra: string) {
-        this.compra = novaCompra;
-    }
-    setPet(novoPet: string) {
-        this.pet = novoPet;
-    }
-    setValor(novoValor: string) {
-        this.valor = novoValor;
+    public get getTipoCompra() { 
+        return this.tipoCompra;
     }
 }

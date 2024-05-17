@@ -1,14 +1,15 @@
-import Cliente from "../modelo/cliente";
 import Listagem from "./listagem";
+import Historico from "../modelo/historico";
 import Entrada from "../io/entrada"
 
 export default class ListagemMaisConsumidos extends Listagem{
-    private clientes: Array<Cliente>
+    private historicos: Array<Historico>
 
-    constructor(clientes: Array<Cliente>){
+    constructor(historicos: Array<Historico>){
         super()
-        this.clientes = clientes
+        this.historicos = historicos
     }
+
     public listar(): void {
         let entrada = new Entrada()
         let opcao: number;
@@ -22,66 +23,38 @@ export default class ListagemMaisConsumidos extends Listagem{
             opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
 
             switch(opcao) {
-                    case 1:
-                        this.listarProdutosMaisConsumidos();
-                        opcao = 0
-                        break;
-                    case 2:
-                        this.listarServicosMaisConsumidos();
-                        opcao = 0
-                        break;
-                    case 0:
-                        console.log(`Voltando ao menu principal`)
-                        break;
-                    default:
-                        console.log(`\nOperação não entendida :(`)
-
+                case 1:
+                    this.listarItensMaisConsumidos("produto");
+                    opcao = 0
+                    break;
+                case 2:
+                    this.listarItensMaisConsumidos("servico");
+                    opcao = 0
+                    break;
+                case 0:
+                    console.log(`Voltando ao menu principal`)
+                    break;
+                default:
+                    console.log(`\nOperação não entendida :(`)
             }
         } while (opcao != 0)
     }
 
-    private listarProdutosMaisConsumidos(): void {
-        let contadorProdutos: { [nome: string]: number } = {};
-    
-        this.clientes.forEach(cliente => {
-            let produtosCliente = cliente.produtosMaisConsumidos;
-            for (let nome in produtosCliente) {
-                if (contadorProdutos[nome]) {
-                    contadorProdutos[nome] += produtosCliente[nome];
-                } else {
-                    contadorProdutos[nome] = produtosCliente[nome];
-                }
-            }
-        });
-    
-        let produtosOrdenados = Object.entries(contadorProdutos).sort((a, b) => b[1] - a[1]);
-    
-        console.log("\nProdutos mais consumidos:\n");
-        produtosOrdenados.forEach(([nome, quantidade]) => {
-            console.log(`Produto: ${nome} - Quantidade Consumida: ${quantidade}`);
-        });
-        console.log(`\n`);
-    }
+    private listarItensMaisConsumidos(tipoCompra: string): void {
+        let contadorItens = new Map<string, number>();
 
-    private listarServicosMaisConsumidos(): void {
-        let contadorServicos: { [nome: string]: number } = {};
-    
-        this.clientes.forEach(cliente => {
-            let servicosCliente = cliente.servicosMaisConsumidos;
-            for (let nome in servicosCliente) {
-                if (contadorServicos[nome]) {
-                    contadorServicos[nome] += servicosCliente[nome];
-                } else {
-                    contadorServicos[nome] = servicosCliente[nome];
-                }
+        for (let historico of this.historicos) {
+            if (historico.getTipoCompra === tipoCompra) {
+                let total = contadorItens.get(historico.getCompra) || 0;
+                contadorItens.set(historico.getCompra, total + 1);
             }
-        });
-    
-        let servicosOrdenados = Object.entries(contadorServicos).sort((a, b) => b[1] - a[1]);
-    
-        console.log("\nServiços mais consumidos:\n");
-        servicosOrdenados.forEach(([nome, quantidade]) => {
-            console.log(`Serviço: ${nome} - Quantidade Consumida: ${quantidade}`);
+        }
+
+        let itensOrdenados = Array.from(contadorItens.entries()).sort((a, b) => b[1] - a[1]);
+
+        console.log(`\n${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}s mais consumidos:\n`);
+        itensOrdenados.forEach(([nome, quantidade]) => {
+            console.log(`${tipoCompra.charAt(0).toUpperCase() + tipoCompra.slice(1)}: ${nome} - Quantidade Consumida: ${quantidade}`);
         });
         console.log(`\n`);
     }

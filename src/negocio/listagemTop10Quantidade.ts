@@ -1,25 +1,32 @@
-
-import Cliente from "../modelo/cliente";
 import Listagem from "./listagem";
+import Historico from "../modelo/historico";
 
 export default class ListagemTop10Quantidade extends Listagem{
-    private clientes: Array<Cliente>
-    constructor(clientes: Array<Cliente>){ // Modify this line
+    private historicos: Array<Historico>
+
+    constructor(historicos: Array<Historico>){
         super()
-        this.clientes = clientes // Add this line
+        this.historicos = historicos
     }
 
     public listar(): void {
-        console.log(`\nListagem dos 10 clientes que mais consumiram (quantidade):\n`);
-        let clientesCopy = [...this.clientes];
+        let totalPorCliente = new Map<string, number>();
 
-        clientesCopy.sort((a, b) => b.totalQuantidadeConsumida - a.totalQuantidadeConsumida);
+        for (let historico of this.historicos) {
+            let total = totalPorCliente.get(historico.getComprador.getNome) || 0;
+            totalPorCliente.set(historico.getComprador.getNome, total + 1);
+        }
 
-        let top10Clientes = clientesCopy.slice(0, 10);
+        let listaClientes = Array.from(totalPorCliente.entries());
+        listaClientes.sort((a, b) => b[1] - a[1]);
 
-        top10Clientes.forEach(cliente => {
-            console.log(`Cliente: ${cliente.getNome} (ID: ${cliente.getId}) - Total Consumido: ${cliente.totalQuantidadeConsumida}`);
-        });
+        let top10Clientes = listaClientes.slice(0, 10);
+
+        console.log("\nTop 10 clientes que mais consumiram (quantidade):\n");
+        for (let [nomeCliente, total] of top10Clientes) {
+            let idCliente = this.historicos.find(historico => historico.getComprador.getNome === nomeCliente)?.getComprador.getId;
+            console.log(`ID & Cliente: (${idCliente}) ${nomeCliente} - Total Consumido: ${total}`);
+        }
         console.log(`\n`);
     }
 }
