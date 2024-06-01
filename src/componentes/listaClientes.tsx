@@ -1,24 +1,38 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Component } from "react";
+import "../styles/bg17.css"
+import "../index.css"
 
-type props = {
-    tema: string
-}
-
-export default class ListaCliente extends Component<props>{
+export default class ListaCliente extends Component{
     render() {
-        let tema = this.props.tema
         return (
-            <div className="container-fluid">
+        <div>
+            <div className="bg17"></div>
+            <div className="container-fluid fundo-escuro">
+                <h2>Clientes</h2>
+                <hr></hr>
                 <div className="list-group">
-                    <a href="#" className="list-group-item list-group-item-action">Cliente 1</a>
-                    <a href="#" className="list-group-item list-group-item-action">Cliente 2</a>
-                    <a href="#" className="list-group-item list-group-item-action">Cliente 3</a>
-                    <a href="#" className="list-group-item list-group-item-action" style={{ backgroundColor: tema }} >Cliente 4</a>
-                    <a href="#" className="list-group-item list-group-item-action">Cliente 5</a>
-                    <a href="#" className="list-group-item list-group-item-action">Cliente 6</a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 1
+                    </a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 2
+                    </a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 3
+                    </a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 4
+                    </a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 5
+                    </a>
+                    <a href="/cliente/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
+                        Cliente 6
+                    </a>
                 </div>
             </div>
+        </div>
         )
     }
 }
