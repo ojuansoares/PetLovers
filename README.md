@@ -17,7 +17,7 @@ Nesta fase do projeto, estamos trabalhando para adicionar uma interface gráfica
 - Bootstrap: Um framework front-end responsivo e moderno.
 - React: Uma biblioteca JavaScript/TypeScript de código aberto, com foco em criar GUI em páginas web.
 
-## Instalação
+## Como rodar o projeto
 
 In the project directory, you can run:
 
