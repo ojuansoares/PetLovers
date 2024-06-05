@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "../index.css"
-import "../styles/bg2.css"
+import "../styles/bg13.css"
 
 interface State {
     nome: string;
@@ -41,7 +41,7 @@ export default class CadastroPet extends Component<{}, State> {
     render() {
         return (
         <div>
-            <div className="bg2"></div>
+            <div className="bg13"></div>
             <div className="container-fluid fundo-escuro">
                 <h2>Cadastro de Pet</h2>
                 <hr></hr>

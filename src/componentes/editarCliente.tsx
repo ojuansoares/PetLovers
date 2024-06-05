@@ -76,31 +76,42 @@ export default class EditarCliente extends Component<{}, State> {
                 <h2>Editar Cliente</h2>
                 <hr></hr>
                 <form>
+                    <label>Nome</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Nome" name="nome" value={this.state.nome} onChange={this.handleInputChange} />
                     </div>
+                    <label>Nome Social</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Nome Social" name="nomeSocial" value={this.state.nomeSocial} onChange={this.handleInputChange} />
                     </div>
+                    <label>CPF</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="CPF" name="cpf" value={this.state.cpf} onChange={this.handleInputChange} />
                     </div>
+                    <label>Data de Emissão do CPF</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Data de Emissão do CPF" name="dataEmissaoCpf" value={this.state.dataEmissaoCpf} onChange={this.handleInputChange} />
                     </div>
                     {this.state.rgs.map((rg, index) => (
                         <div key={index}>
+                            <label>{`RG ${index + 1}`}</label>
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control" placeholder={`RG ${index + 1}`} name="rg" value={rg.rg} onChange={event => this.handleRgChange(index, { target: { name: "rg", value: event.target.value } })} />
                             </div>
+                            <label>{`Data de Emissão do RG ${index + 1}`}</label>
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control" placeholder={`Data de Emissão do RG ${index + 1}`} name="dataEmissao" value={rg.dataEmissao} onChange={event => this.handleRgChange(index, { target: { name: "dataEmissao", value: event.target.value } })} />
                             </div>
                         </div>
                     ))}
                     {this.state.telefones.map((telefone, index) => (
-                        <div className="input-group mb-3" key={index}>
-                            <input type="text" className="form-control" placeholder={`Telefone ${index + 1}`} value={telefone} onChange={event => this.handleTelefoneChange(index, event)} />
+                        <div key={index}>
+                            <div className="mb-1">
+                                <label>{`Telefone ${index + 1}`}</label>
+                            </div>
+                            <div className="input-group mb-3">
+                                <input type="text" className="form-control" placeholder={`Telefone ${index + 1}`} value={telefone} onChange={event => this.handleTelefoneChange(index, event)} />
+                            </div>
                         </div>
                     ))}
                     <div className="d-flex gap-2">

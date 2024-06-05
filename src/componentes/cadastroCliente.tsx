@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "../index.css"
-import "../styles/bg1.css"
+import "../styles/bg17.css"
 
 interface State {
     nome: string;

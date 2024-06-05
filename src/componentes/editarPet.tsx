@@ -49,18 +49,23 @@ export default class EditarPet extends Component<{}, State> {
                 <h2>Editar Pet</h2>
                 <hr></hr>
                 <form>
+                    <label>Nome</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Nome" name="nome" value={this.state.nome} onChange={this.handleInputChange} />
                     </div>
+                    <label>Raça</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Raça" name="raca" value={this.state.raca} onChange={this.handleInputChange} />
                     </div>
+                    <label>Gênero</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Gênero" name="genero" value={this.state.genero} onChange={this.handleInputChange} />
                     </div>
+                    <label>Tipo</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Tipo" name="tipo" value={this.state.tipo} onChange={this.handleInputChange} />
                     </div>
+                    <label>ID do Dono</label>
                     <div className="input-group mb-3">
                         <input type="number" className="form-control" placeholder="ID do Dono" name="idDono" value={this.state.idDono} onChange={this.handleInputChange} />
                     </div>

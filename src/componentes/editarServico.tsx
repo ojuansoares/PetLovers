@@ -45,12 +45,15 @@ export default class EditarServico extends Component<{}, State> {
                 <h2>Editar Serviço</h2>
                 <hr></hr>
                 <form>
+                    <label>Nome</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Nome" name="nome" value={this.state.nome} onChange={this.handleInputChange} />
                     </div>
+                    <label>Descrição</label>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Descrição" name="descricao" value={this.state.descricao} onChange={this.handleInputChange} />
                     </div>
+                    <label>Valor</label>
                     <div className="input-group mb-3">
                         <input type="number" className="form-control" placeholder="Valor" name="valor" value={this.state.valor} onChange={this.handleInputChange} />
                     </div>
