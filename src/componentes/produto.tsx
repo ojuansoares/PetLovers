@@ -3,6 +3,8 @@ import "../styles/bg5.css"
 import "../index.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     nome: string;
@@ -25,14 +27,21 @@ export default class Produto extends Component<{}, State> {
             title: 'Deletar Produto',
             message: 'Tem certeza que deseja deletar este produto?',
             buttons: [
-              {
-                label: 'Sim',
-              },
-              {
-                label: 'Não',
-              }
+                {
+                    label: 'Sim',
+                    onClick: () => {
+                        const notify = () => toast.success("Produto deletado com sucesso!");
+                        notify();
+                        setTimeout(() => {
+                            window.location.href = '/produtos';
+                        }, 1200);
+                    }
+                },
+                {
+                    label: 'Não',
+                }
             ]
-          });
+        });
     }
 
     handleEdit = () => {
@@ -54,6 +63,10 @@ export default class Produto extends Component<{}, State> {
                     <button className="btn btn-outline-danger" type="button" onClick={this.handleDelete}>Deletar</button>
                 </div>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }

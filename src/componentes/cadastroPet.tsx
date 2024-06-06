@@ -1,6 +1,8 @@
 import { Component } from "react";
 import "../index.css"
 import "../styles/bg13.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     nome: string;
@@ -30,7 +32,11 @@ export default class CadastroPet extends Component<{}, State> {
 
     handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Pet cadastrado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/cadastrar';
+        }, 1200);
     };
 
     handleCancel = (event: { preventDefault: () => void; }) => {
@@ -79,6 +85,10 @@ export default class CadastroPet extends Component<{}, State> {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }

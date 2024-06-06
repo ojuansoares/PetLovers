@@ -3,6 +3,8 @@ import "../index.css"
 import "../styles/bg17.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     id: number;
@@ -43,14 +45,21 @@ export default class Cliente extends Component<{}, State> {
             title: 'Deletar Cliente',
             message: 'Tem certeza que deseja deletar este cliente?',
             buttons: [
-              {
-                label: 'Sim',
-              },
-              {
-                label: 'Não',
-              }
+                {
+                    label: 'Sim',
+                    onClick: () => {
+                        const notify = () => toast.success("Cliente deletado com sucesso!");
+                        notify();
+                        setTimeout(() => {
+                            window.location.href = '/clientes';
+                        }, 1200);
+                    }
+                },
+                {
+                    label: 'Não',
+                }
             ]
-          });
+        });
     }
 
     handleEdit = () => {
@@ -97,6 +106,10 @@ export default class Cliente extends Component<{}, State> {
                     <button className="btn btn-outline-danger" type="button" onClick={this.handleDelete}>Deletar</button>
                 </div>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import "../styles/bg10.css"
 import "../index.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     nome: string;
@@ -29,7 +31,11 @@ export default class EditarServico extends Component<{}, State> {
 
     handleSave = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        window.location.href = '/servico/id:';
+        const notify = () => toast.success("Serviço editado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/servico/id:';
+        }, 1200);
     };
 
     handleCancel = (event: { preventDefault: () => void; }) => {
@@ -63,6 +69,10 @@ export default class EditarServico extends Component<{}, State> {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }

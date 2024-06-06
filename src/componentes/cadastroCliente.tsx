@@ -1,6 +1,8 @@
 import { Component } from "react";
 import "../index.css"
 import "../styles/bg17.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     nome: string;
@@ -54,7 +56,11 @@ export default class CadastroCliente extends Component<{}, State> {
 
     handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Cliente cadastrado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/cadastrar';
+        }, 1200);
     };
 
     handleCancel = (event: { preventDefault: () => void; }) => {
@@ -65,7 +71,7 @@ export default class CadastroCliente extends Component<{}, State> {
     render() {
         return (
         <div>
-            <div className="bg1"></div>
+            <div className="bg17"></div>
             <div className="container-fluid fundo-escuro">
                 <h2>Cadastro de Cliente</h2>
                 <hr></hr>
@@ -109,6 +115,10 @@ export default class CadastroCliente extends Component<{}, State> {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }

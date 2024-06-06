@@ -1,6 +1,8 @@
 import { Component } from "react";
 import "../index.css"
 import "../styles/bg13.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface State {
     nome: string;
@@ -33,7 +35,11 @@ export default class EditarPet extends Component<{}, State> {
 
     handleSave = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        window.location.href = '/pet/id:';
+        const notify = () => toast.success("Pet editado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/pet/id:';
+        }, 1200);
     };
 
     handleCancel = (event: { preventDefault: () => void; }) => {
@@ -75,6 +81,10 @@ export default class EditarPet extends Component<{}, State> {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
         )
     }
