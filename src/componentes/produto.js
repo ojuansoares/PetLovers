@@ -3,6 +3,8 @@ import "../styles/bg5.css"
 import "../index.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Produto() {
     const [produto, setProduto] = useState({
@@ -16,12 +18,19 @@ export default function Produto() {
             title: 'Deletar Produto',
             message: 'Tem certeza que deseja deletar este produto?',
             buttons: [
-              {
-                label: 'Sim',
-              },
-              {
-                label: 'Não',
-              }
+                {
+                    label: 'Sim',
+                    onClick: () => {
+                        const notify = () => toast.success("Produto deletado com sucesso!");
+                        notify();
+                        setTimeout(() => {
+                            window.location.href = '/produtos';
+                        }, 1200);
+                    }
+                },
+                {
+                    label: 'Não',
+                }
             ]
         });
     }
@@ -44,6 +53,10 @@ export default function Produto() {
                     <button className="btn btn-outline-danger" type="button" onClick={handleDelete}>Deletar</button>
                 </div>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

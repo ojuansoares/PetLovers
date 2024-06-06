@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../index.css"
 import "../styles/bg5.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditarProduto() {
     const [produto, setProduto] = useState({
@@ -17,7 +19,11 @@ export default function EditarProduto() {
 
     const handleSave = (event) => {
         event.preventDefault();
-        window.location.href = '/produto/id:';
+        const notify = () => toast.success("Produto editado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/produto/id:';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -50,6 +56,10 @@ export default function EditarProduto() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

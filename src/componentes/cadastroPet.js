@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../index.css"
 import "../styles/bg13.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroPet() {
     const [nome, setNome] = useState('');
@@ -34,7 +36,11 @@ export default function CadastroPet() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Pet cadastrado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/cadastrar';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -82,6 +88,10 @@ export default function CadastroPet() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

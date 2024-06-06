@@ -3,6 +3,8 @@ import "../index.css"
 import "../styles/bg13.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Pet() {
     const [pet, setPet] = useState({
@@ -18,14 +20,21 @@ export default function Pet() {
             title: 'Deletar Pet',
             message: 'Tem certeza que deseja deletar este pet?',
             buttons: [
-              {
-                label: 'Sim',
-              },
-              {
-                label: 'Não',
-              }
+                {
+                    label: 'Sim',
+                    onClick: () => {
+                        const notify = () => toast.success("Pet deletado com sucesso!");
+                        notify();
+                        setTimeout(() => {
+                            window.location.href = '/pets';
+                        }, 1200);
+                    }
+                },
+                {
+                    label: 'Não',
+                }
             ]
-          });
+        });
     }
 
     const handleEdit = () => {
@@ -48,6 +57,10 @@ export default function Pet() {
                     <button className="btn btn-outline-danger" type="button" onClick={handleDelete}>Deletar</button>
                 </div>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../styles/bg8.css"
 import "../index.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroCompra() {
     const [idComprador, setIdComprador] = useState(1);
@@ -30,7 +32,11 @@ export default function CadastroCompra() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Compra cadastrada com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/registrarcompra';
+        }, 1200);
     };
 
     return (
@@ -76,6 +82,10 @@ export default function CadastroCompra() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

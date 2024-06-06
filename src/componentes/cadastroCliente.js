@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../index.css"
 import "../styles/bg17.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroCliente() {
     const [nome, setNome] = useState('');
@@ -58,7 +60,11 @@ export default function CadastroCliente() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Cliente cadastrado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/cadastrar';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -107,11 +113,15 @@ export default function CadastroCliente() {
                         </div>
                     ))}
                     <div className="d-flex gap-2">
-                        <button className="btn btn-outline-secondary" type="submit">Cadastrar</button>
+                        <button className="btn btn-outline-secondary" type="submit" onClick={handleSubmit}>Cadastrar</button>
                         <button className="btn btn-outline-danger" type="button" onClick={handleCancel}>Cancelar</button>
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

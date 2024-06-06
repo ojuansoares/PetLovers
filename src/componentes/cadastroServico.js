@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../styles/bg10.css"
 import "../index.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroServico() {
     const [servico, setServico] = useState({
@@ -18,7 +20,11 @@ export default function CadastroServico() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aqui você pode lidar com a submissão do formulário
+        const notify = () => toast.success("Serviço cadastrado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/cadastrar';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -48,6 +54,10 @@ export default function CadastroServico() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

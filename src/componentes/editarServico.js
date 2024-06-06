@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../styles/bg10.css"
 import "../index.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditarServico() {
     const [servico, setServico] = useState({
@@ -18,7 +20,11 @@ export default function EditarServico() {
 
     const handleSave = (event) => {
         event.preventDefault();
-        window.location.href = '/servico/id:';
+        const notify = () => toast.success("Serviço editado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/servico/id:';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -51,6 +57,10 @@ export default function EditarServico() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../index.css"
 import "../styles/bg13.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditarPet() {
     const [pet, setPet] = useState({
@@ -20,7 +22,11 @@ export default function EditarPet() {
 
     const handleSave = (event) => {
         event.preventDefault();
-        window.location.href = '/pet/id:';
+        const notify = () => toast.success("Pet editado com sucesso!");
+        notify();
+        setTimeout(() => {
+            window.location.href = '/pet/id:';
+        }, 1200);
     };
 
     const handleCancel = (event) => {
@@ -61,6 +67,10 @@ export default function EditarPet() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            position="top-center"
+            theme="dark"
+            />
         </div>
     )
 }
