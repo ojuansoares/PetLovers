@@ -1,21 +1,10 @@
-# ATV2 - Interface Gráfica para o PetLovers
+# ATV4 - Integração Front-end e Back-end com Micro-serviços REST
 
-## Descrição do Projeto
+Este projeto é uma continuação do desenvolvimento front-end iniciado anteriormente e foca na integração de uma interface gráfica de usuário (GUI) construída com React Hooks com um micro-serviço back-end baseado na arquitetura REST.
 
-A Computer4Pet (C4P) é uma empresa especializada no desenvolvimento de sistemas para gerenciamento de lojas no segmento pet, incluindo comércio eletrônico, pet shops e clínicas veterinárias. O primeiro projeto da C4P foi o PetLovers (PL), um sistema de gerenciamento para pet shops e clínicas veterinárias. Agora, estamos trabalhando para adicionar uma interface gráfica ao sistema.
+# Objetivo
 
-## Sobre o PetLovers (PL)
-
-O PetLovers (PL) é um sistema desenvolvido para gerenciar pet shops e clínicas veterinárias. Ele inclui funcionalidades para o cadastro de clientes, seus pets, produtos e serviços. O PL também permite o registro de consumo de produtos e serviços por parte dos clientes.
-
-## Atualização do Projeto
-
-Nesta fase do projeto, estamos trabalhando para adicionar uma interface gráfica ao sistema. A interface será desenvolvida usando a biblioteca Bootstrap e a biblioteca React. Todos os componentes criados com a React devem ser componentes de classe.
-
-## Tecnologias Utilizadas
-
-- Bootstrap: Um framework front-end responsivo e moderno.
-- React: Uma biblioteca JavaScript/TypeScript de código aberto, com foco em criar GUI em páginas web.
+O objetivo é desenvolver uma aplicação front-end que se comunique eficientemente com um back-end RESTful, possibilitando a realização de operações básicas de CRUD (Create, Read, Update, Delete) para gerenciar clientes. A interface gráfica deve ser baseada na GUI construída anteriormente, utilizando componentes funcionais e hooks, e deve ser capaz de interagir com as rotas fornecidas pelo micro-serviço.
 
 ## Como rodar o projeto
 
