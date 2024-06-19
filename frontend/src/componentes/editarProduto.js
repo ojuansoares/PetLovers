@@ -43,8 +43,9 @@ export default function EditarProduto() {
         }
 
         try {
-            await axios.post(`/atualizarProduto`, { id, dados: produto });
+            await axios.post(`/atualizarProduto`, { id: produto.id, dados: produto });
             toast.success('Produto editado com sucesso!');
+            console.log("Produto editado com sucesso")
             setTimeout(() => {
                 window.location.href = `/produto/${id}`;
             }, 1200);

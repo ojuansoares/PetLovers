@@ -54,11 +54,11 @@ export default class CompraController {
                 let comprasCliente = clienteAlvo.getServicosConsumidos
 
                 for(let i = 0; i < compra.quantidade; i++){
-                    const servicoComprado = this.servicos.find(servico => servico.getCodigo === compra.codigo)
+                    const servicoComprado = this.servicos.find(servico => servico.getId === compra.id)
                     if(servicoComprado){
                         let pet = clienteAlvo.getPet(dadosCliente.pet.id)
                         if(pet){
-                            let compraRealizada = new Servico(0, servicoComprado.getNome, servicoComprado.getPreco, pet, new Date())
+                            let compraRealizada = new Servico(0, servicoComprado.getNome, servicoComprado.getDescricao, servicoComprado.getValor)
                             comprasCliente.push(compraRealizada)
                         } else {
                             res.send(`Pet não encontrado`)

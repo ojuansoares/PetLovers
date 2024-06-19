@@ -1,8 +1,24 @@
-import React from "react";
-import "../index.css"
-import "../styles/bg10.css"
+import React, { useState, useEffect } from 'react';
+import axios from '../services/axios';
+import "../styles/bg10.css";
+import "../index.css";
 
 export default function ListaServicos() {
+    const [servicos, setServicos] = useState([]);
+
+    useEffect(() => {
+        async function getServicos() {
+            try {
+                const response = await axios.get('/servicos');
+                console.log("Dados dos serviços:", response.data);
+                setServicos(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar serviços:", error);
+            }
+        }
+        getServicos();
+    }, []);
+
     return (
         <div>
             <div className="bg10"></div>
@@ -10,26 +26,19 @@ export default function ListaServicos() {
                 <h2>Serviços</h2>
                 <hr></hr>
                 <div className="list-group">
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 1
-                    </a>
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 2
-                    </a>
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 3
-                    </a>
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 4
-                    </a>
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 5
-                    </a>
-                    <a href="/servico/:id" className="list-group-item list-group-item-action d-flex justify-content-between">
-                        Serviço 6
-                    </a>
+                    {servicos.length > 0 ? (
+                        servicos.map((servico, index) => (
+                            <a key={index} href={`/servico/${servico.id}`} className="list-group-item list-group-item-action d-flex justify-content-between">
+                                {servico.nome}
+                            </a>
+                        ))
+                    ) : (
+                        <div className="d-flex justify-content-center align-items-center">
+                            <p>Nenhum serviço encontrado.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
-    )
+    );
 }

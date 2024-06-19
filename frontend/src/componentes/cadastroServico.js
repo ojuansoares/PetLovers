@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import "../styles/bg10.css"
-import "../index.css"
+import "../styles/bg5.css";
+import "../index.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from '../services/axios';
+import { NumericFormat } from 'react-number-format';
 
 export default function CadastroServico() {
     const [servico, setServico] = useState({
@@ -11,20 +13,27 @@ export default function CadastroServico() {
         valor: 0,
     });
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (name, value) => {
         setServico({
             ...servico,
-            [event.target.name]: event.target.value
+            [name]: value
         });
-    }
+    };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const notify = () => toast.success("Serviço cadastrado com sucesso!");
-        notify();
-        setTimeout(() => {
-            window.location.href = '/cadastrar';
-        }, 1200);
+
+        if (servico.valor <= 0) {
+            toast.error('O valor do serviço deve ser maior que 0!');
+            return;
+        }
+
+        await axios.post('/cadastrarServico', { dados: servico }).then((response) => {
+            toast.success('Serviço cadastrado com sucesso!')
+            setTimeout(() => {
+                window.location.href = '/servicos';
+            }, 1200);
+        });
     };
 
     const handleCancel = (event) => {
@@ -34,19 +43,58 @@ export default function CadastroServico() {
 
     return (
         <div>
-            <div className="bg10"></div>
+            <div className="bg5"></div>
             <div className="container-fluid fundo-escuro">
                 <h2>Cadastro de Serviço</h2>
                 <hr></hr>
                 <form onSubmit={handleSubmit}>
+                    <label>Nome</label>
                     <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Nome" aria-label="Nome" aria-describedby="basic-addon1" name="nome" onChange={handleInputChange}/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            aria-label="Nome" 
+                            aria-describedby="basic-addon1" 
+                            name="nome" 
+                            value={servico.nome}
+                            onChange={e => handleInputChange(e.target.name, e.target.value)}
+                            required
+                        />
                     </div>
+                    <label>Descrição</label>
                     <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder="Descrição" aria-label="Descrição" aria-describedby="basic-addon1" name="descricao" onChange={handleInputChange}/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            aria-label="Descrição" 
+                            aria-describedby="basic-addon1" 
+                            name="descricao" 
+                            value={servico.descricao}
+                            onChange={e => handleInputChange(e.target.name, e.target.value)}
+                            required
+                        />
                     </div>
+                    <label>Valor do serviço</label>
                     <div className="input-group mb-3">
-                        <input type="number" className="form-control" placeholder="Valor do serviço" aria-label="Valor do serviço" aria-describedby="basic-addon1" name="valor" onChange={handleInputChange}/>
+                        <NumericFormat
+                            value={servico.valor}
+                            onValueChange={values => handleInputChange('valor', values.floatValue)}
+                            thousandSeparator="."
+                            decimalSeparator=","
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            prefix={'R$ '}
+                            format={(val) => {
+                                const cleaned = val.replace(/[^\d]/g, '');
+                                const formattedValue = (Number(cleaned) / 100).toFixed(2).replace('.', ',');
+                                return `R$ ${formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+                            }}
+                            className="form-control"
+                            aria-label="Valor do serviço"
+                            aria-describedby="basic-addon1"
+                            name="valor"
+                            required
+                        />
                     </div>
                     <div className="d-flex gap-2">
                         <button className="btn btn-outline-secondary" type="submit">Cadastrar</button>
@@ -55,9 +103,9 @@ export default function CadastroServico() {
                 </form>
             </div>
             <ToastContainer
-            position="top-center"
-            theme="dark"
+                position="top-center"
+                theme="dark"
             />
         </div>
-    )
+    );
 }

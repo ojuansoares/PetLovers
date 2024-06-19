@@ -1,46 +1,36 @@
-import Pet from "./pet"
-
 export default class Servico {
-    private codigo: number
-    public nome: string
-    private preco: number
-    private pet?: Pet
-    private dataConsumo?: Date
+    private nome: string;
+    private descricao: string;
+    private valor: string;
+    private id: number;
 
-    constructor(codigo: number, nome: string, preco: number, pet?: Pet, dataConsumo?: Date) {
-        this.codigo = codigo
-        this.nome = nome
-        this.preco = preco
-        this.pet = pet
-        this.dataConsumo = dataConsumo
+    constructor(id: number, nome: string, descricao: string, valor: string) {
+        this.nome = nome;
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
     }
 
-    public get getCodigo(){
-        return this.codigo
+    public get getId() {
+        return this.id
     }
-
-    public get getNome(){
+    public get getNome() {
         return this.nome
     }
-    public set setNome(novoNome:string){
-        this.nome = novoNome
+    public get getDescricao() {
+        return this.descricao
+    }
+    public get getValor() {
+        return this.valor
     }
 
-    public get getPreco(){
-        return this.preco
+    public set setNome(novoNome: string) {
+        this.nome = novoNome;
     }
-    public set setPreco(novoPreco:number){
-        this.preco = novoPreco
+    public set setDescricao(novaDescricao: string) {
+        this.descricao = novaDescricao;
     }
-
-    public get getPet(){
-        return this.pet
-    }
-    public set setPet(novoPet: Pet){
-        this.pet = novoPet
-    }
-
-    public get getData(){
-        return this.dataConsumo
+    public set setValor(novoValor: string) {
+        this.valor = novoValor;
     }
 }

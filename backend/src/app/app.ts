@@ -8,7 +8,6 @@ import PetController from '../controllers/petController'
 import ProdutoController from '../controllers/produtoController'
 import ServicoController from '../controllers/servicoController'
 import CompraController from '../controllers/compraController'
-import DadosConsumoController from '../controllers/dadosConsumoController'
 
 //Configurações do express
 const app = express()
@@ -25,7 +24,6 @@ const petController = new PetController(empresa.getPets, empresa.getClientes)
 const produtoController = new ProdutoController(empresa.getProdutos)
 const servicoController = new ServicoController(empresa.getServicos)
 const compraController = new CompraController(empresa.getClientes, empresa.getProdutos, empresa.getServicos)
-const dadosConsumoController = new DadosConsumoController(empresa.getClientes, empresa.getProdutos, empresa.getServicos)
 
 //--- Rotas de clientes ---
 //Listagem geral dos clientes
@@ -92,19 +90,6 @@ app.get('/servico/:id', (req, res) => servicoController.consultarServico(req, re
 app.post('/comprarProduto', (req, res) => compraController.compraProduto(req, res))
 //Rota de compra de serviços
 app.post('/comprarServico', (req, res) => compraController.compraServico(req, res))
-
-
-//--- Rotas de dados de consumo ---
-//Rota de maior demanda de Produtos/Serviços
-app.get('/demandaGeral', (req, res) => dadosConsumoController.listarMaiorDemanda(req, res))
-//Rota de maior consumo por quantidade
-app.get('/consumoQuantidade', (req, res) => dadosConsumoController.consumoQuantidade(req, res))
-//Rota de maior consumo por valor
-app.get('/consumoValor', (req, res) => dadosConsumoController.consumoValor(req, res))
-//Rota de maior consumo por tipo de pet
-app.get('/consumoTipo', (req, res) => dadosConsumoController.consumoPorTipo(req, res))
-//Rota de maior consumo por raça de pet
-app.get('/consumoRaca', (req, res) => dadosConsumoController.consumoPorRaca(req, res))
 
 
 // Inicialização do servidor
