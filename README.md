@@ -23,3 +23,42 @@ O PetLovers (PL) é um sistema desenvolvido para gerenciar pet shops e clínicas
 ✅ Listagem dos serviços ou produtos mais consumidos por tipo e raça de pets.
 
 ✅ Listagem dos 5 clientes que mais consumiram em valor, não em quantidade.
+
+# Como rodar o projeto
+
+Siga os passos abaixo para clonar e rodar o projeto em sua máquina local.
+
+# Pré-requisitos
+
+Node.js instalado em sua máquina. Se você não tem, pode baixar aqui.
+
+# Passo a passo
+
+- Abra o terminal.
+
+- Clone o repositório do projeto.
+  ``` bash
+  git clone https://github.com/ojuansoares/atv1.git
+  ```
+
+- Instale o npm
+  ``` bash
+  npm install
+  ```
+
+- Compile
+  ``` bash
+  npx tsc
+  ```
+
+- Navegue até a pasta atv1/out/app do projeto clonado.
+  ``` bash
+   cd .\out\app\ 
+  ```
+  
+- Execute o arquivo main.js com o Node.js.
+  ``` bash
+  node .\main.js
+  ```
+  
+Pronto! O projeto agora deve estar rodando em sua máquina local.
