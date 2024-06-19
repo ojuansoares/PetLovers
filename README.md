@@ -21,6 +21,10 @@ Nesta fase do projeto, estamos trabalhando para adicionar uma interface gráfica
 
 In the project directory, you can run:
 
+### `npm install`
+
+And after that:
+
 ### `npm start`
 
 Runs the app in the development mode.\
