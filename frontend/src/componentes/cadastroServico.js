@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../styles/bg5.css";
+import "../styles/bg10.css";
 import "../index.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,7 +43,7 @@ export default function CadastroServico() {
 
     return (
         <div>
-            <div className="bg5"></div>
+            <div className="bg10"></div>
             <div className="container-fluid fundo-escuro">
                 <h2>Cadastro de Serviço</h2>
                 <hr></hr>

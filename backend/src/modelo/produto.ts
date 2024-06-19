@@ -10,6 +10,10 @@ export default class Produto {
         this.descricao = descricao;
         this.valor = valor;
     }
+    
+    public clone(): Produto {
+        return new Produto(this.getId, this.getNome, this.getDescricao, this.getValor);
+    }
 
     public get getId() {
         return this.id

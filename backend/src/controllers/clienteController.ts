@@ -27,17 +27,14 @@ export default class ClienteController {
         try {
             const dados = req.body.dados
 
-            // CPF
             let cpf = new CPF(dados.cpf.valor, dados.cpf.dataEmissao)
 
-            // RGS
             let rgs: RG[] = []
             for (let i = 0; i < dados.rgs.length; i++) {
                 let rg = new RG(dados.rgs[i].valor, dados.rgs[i].dataEmissao)
                 rgs.push(rg)
             }
 
-            // TELEFONES
             let telefones: Telefone[] = []
             for (let i = 0; i < dados.telefones.length; i++) {
                 let telefone = new Telefone(dados.telefones[i].ddd, dados.telefones[i].numero)
@@ -51,7 +48,6 @@ export default class ClienteController {
         } catch (error) {
             res.send(error)
         }
-
     }
 
     public atualizarCliente(req: Request, res: Response): void {
@@ -61,7 +57,6 @@ export default class ClienteController {
 
             let clienteAlvo = this.clientes[Number(id) - 1]
             if (clienteAlvo) {
-                // Atualização dos dados
                 clienteAlvo.nome = dados.nome
                 clienteAlvo.nomeSocial = dados.nomeSocial
 
@@ -87,7 +82,6 @@ export default class ClienteController {
         } catch (error) {
             res.send(error)
         }
-
     }
 
     public removerCliente(req: Request, res: Response): void {
@@ -121,18 +115,16 @@ export default class ClienteController {
                 res.send(`Cliente não encontrado`)
             }
         } catch (error) {
-
+            res.send(error)
         }
     }
 
     public cpfExistentes(request: Request, res: Response) {
-
         const listaCpfs: Array<string> = []
         this.clientes.forEach(cliente => {
             const cpf = cliente.getCpf.getValor
             listaCpfs.push(cpf)
         })
-
         res.send(listaCpfs)
     }
 
@@ -143,7 +135,6 @@ export default class ClienteController {
                 clientesComPets.push(cliente.nome)
             }
         })
-
         res.send(clientesComPets)
     }
 
@@ -151,36 +142,34 @@ export default class ClienteController {
         const listaClientes = this.clientes.map(cliente => ({
             nome: cliente.nome,
             cpf: cliente.getCpf.getValor
-        }));
-        res.json(listaClientes);
+        }))
+        res.json(listaClientes)
     }
 
     public removerClienteComPets(req: Request, res: Response): void {
         try {
-            const id: number = Number(req.body.id);
-            const clienteAlvo = this.clientes[id - 1];
+            const id: number = Number(req.body.id)
+            const clienteAlvo = this.clientes[id - 1]
 
             if (!clienteAlvo) {
-                res.status(404).send('Cliente não encontrado');
-                return;
+                res.status(404).send('Cliente não encontrado')
+                return
             }
 
-            // Remover os pets associados ao cliente
-            const cpfCliente = clienteAlvo.getCpf.getValor;
-            const petsDoCliente = this.pets.filter(pet => pet.getIdDono === cpfCliente);
+            const cpfCliente = clienteAlvo.getCpf.getValor
+            const petsDoCliente = this.pets.filter(pet => pet.getIdDono === cpfCliente)
 
             petsDoCliente.forEach(pet => {
-                const reqPet = { body: { id: pet.getId } } as Request;
-                const resPet = { send: (message: string) => {} } as Response; // mock response object
-                this.petController.removerPet(reqPet, resPet);
-            });
+                const reqPet = { body: { id: pet.getId } } as Request
+                const resPet = { send: (message: string) => {} } as Response 
+                this.petController.removerPet(reqPet, resPet)
+            })
 
-            // Remover o cliente
-            this.clientes.splice(id - 1, 1);
+            this.clientes.splice(id - 1, 1)
 
-            res.send('Cliente e seus pets removidos com sucesso');
+            res.send('Cliente e seus pets removidos com sucesso')
         } catch (error) {
-            res.send(error);
+            res.send(error)
         }
     }
 }

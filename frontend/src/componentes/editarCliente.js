@@ -140,7 +140,7 @@ export default function EditarCliente() {
             const dados = {
                 nome: nome,
                 nomeSocial: nomeSocial,
-                cpf: { valor: cpf.valor, dataEmissao: cpf.dataEmissao }, // Modifiquei aqui
+                cpf: { valor: cpf.valor, dataEmissao: cpf.dataEmissao },
                 rgs: rgs.map((rg, index) => ({ id: index + 1, valor: rg.rg, dataEmissao: rg.dataEmissao })),
                 telefones: telefones.map((telefone, index) => ({ id: index + 1, ddd: telefone.ddd, numero: telefone.numero }))
             };

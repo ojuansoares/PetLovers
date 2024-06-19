@@ -2,81 +2,93 @@ import { Request, Response } from "express";
 import Cliente from "../modelo/cliente";
 import Produto from "../modelo/produto";
 import Servico from "../modelo/servico";
+import Compra from "../modelo/compra";
+import Empresa from "../modelo/empresa";
+import Pet from "../modelo/pet";
 
 export default class CompraController {
-    private clientes: Array<Cliente>
-    private produtos: Array<Produto>
-    private servicos: Array<Servico>
+    private empresa: Empresa;
 
-    constructor(clientes: Array<Cliente>, produtos: Array<Produto>, servicos: Array<Servico>){
-        this.clientes = clientes;
-        this.produtos = produtos
-        this.servicos = servicos
+    constructor(empresa: Empresa) {
+        this.empresa = empresa;
     }
 
-    public compraProduto(req: Request, res: Response){
-        try {
-            const dadosCliente = req.body.cliente
-            const compra = req.body.compra
-
-            const clienteAlvo = this.clientes.find(cliente => cliente.getCpf.getValor === dadosCliente.cpf)
-            if(clienteAlvo){
-                let comprasCliente = clienteAlvo.getProdutosConsumidos
-
-                for(let i = 0; i < compra.quantidade; i++){
-                    const produtoComprado = this.produtos.find(produto => produto.getId === compra.id)
-                    if(produtoComprado){
-                        let compraRealizada = new Produto(0, produtoComprado.getNome, produtoComprado.getDescricao, produtoComprado.getValor)
-                        comprasCliente.push(compraRealizada)
-                    } else {
-                        res.send(`produto não encontrado`)
-                    }
-                }
-
-                clienteAlvo.setProdutosConsumidos = comprasCliente
-                res.send(`foi`)
-
-            } else {
-                res.send('Não foram encontrados clientes com esse CPF')
-            }
-        } catch (error) {
-            res.send(error)
-        }
+    public listarCompra(req: Request, res: Response) {
+        res.json(this.empresa.getCompras);
     }
 
-    public compraServico(req: Request, res: Response){
+    public realizarCompra(req: Request, res: Response) {
         try {
-            const dadosCliente = req.body.cliente
-            const compra = req.body.compra
+            const { cpfCliente, tipoCompra, idItem, idPet } = req.body;
+            const clienteAlvo = this.empresa.getClientes.find(cliente => cliente.getCpf.getValor === cpfCliente);
 
-            const clienteAlvo = this.clientes.find(cliente => cliente.getCpf.getValor === dadosCliente.cpf)
-            if(clienteAlvo){
-                let comprasCliente = clienteAlvo.getServicosConsumidos
-
-                for(let i = 0; i < compra.quantidade; i++){
-                    const servicoComprado = this.servicos.find(servico => servico.getId === compra.id)
-                    if(servicoComprado){
-                        let pet = clienteAlvo.getPet(dadosCliente.pet.id)
-                        if(pet){
-                            let compraRealizada = new Servico(0, servicoComprado.getNome, servicoComprado.getDescricao, servicoComprado.getValor)
-                            comprasCliente.push(compraRealizada)
-                        } else {
-                            res.send(`Pet não encontrado`)
-                        }
-                    } else {
-                        res.send(`serviço não encontrado`)
-                    }
-                    
-                }
-                
-                clienteAlvo.setServicosConsumidos = comprasCliente
-                res.send(`foi`)
-
-            } else {
-                res.send('Não foram encontrados clientes com esse CPF')
+            if (!clienteAlvo) {
+                console.error('Cliente não encontrado');
+                return res.status(404).send('Cliente não encontrado');
             }
+
+            let petAlvo: Pet | null | undefined = null;
+            if (idPet) {
+                petAlvo = clienteAlvo.getPet(idPet);
+                if (petAlvo === undefined) {
+                    petAlvo = null;
+                }
+                if (!petAlvo) {
+                    console.error('Pet não encontrado');
+                    return res.status(404).send('Pet não encontrado');
+                }
+            }
+
+            let itemComprado;
+            let valor: string;
+            if (tipoCompra === "produto") {
+                itemComprado = this.empresa.getProdutos.find(produto => produto.getId === idItem);
+                if (!itemComprado) {
+                    console.error('Produto não encontrado');
+                    return res.status(404).send('Produto não encontrado');
+                }
+                valor = (itemComprado as Produto).getValor.toString();
+                itemComprado = (itemComprado as Produto).clone(); // Clonando produto
+            } else if (tipoCompra === "servico") {
+                itemComprado = this.empresa.getServicos.find(servico => servico.getId === idItem);
+                if (!itemComprado) {
+                    console.error('Serviço não encontrado');
+                    return res.status(404).send('Serviço não encontrado');
+                }
+                valor = (itemComprado as Servico).getValor.toString();
+                itemComprado = (itemComprado as Servico).clone(); // Clonando serviço
+
+                if (!petAlvo) {
+                    console.error('Pet obrigatório para serviços');
+                    return res.status(400).send('Pet obrigatório para serviços');
+                }
+            } else {
+                console.error('Tipo de compra inválido');
+                return res.status(400).send('Tipo de compra inválido');
+            }
+
+            const novaCompra = new Compra(
+                clienteAlvo.nome,
+                clienteAlvo.getCpf.getValor,
+                tipoCompra,
+                itemComprado,
+                petAlvo,
+                valor,
+                new Date()
+            );
+            this.empresa.getCompras.push(novaCompra);
+
+            if (tipoCompra === "produto") {
+                clienteAlvo.adicionarProdutoConsumido(itemComprado as Produto);
+            } else if (tipoCompra === "servico") {
+                clienteAlvo.adicionarServicoConsumido(itemComprado as Servico);
+            }
+
+            res.send("Compra realizada com sucesso");
+
         } catch (error) {
-            res.send(error)
+            console.error("Erro ao realizar compra:", error);
+            res.status(500).send("Erro ao realizar compra");
         }
     }
 }

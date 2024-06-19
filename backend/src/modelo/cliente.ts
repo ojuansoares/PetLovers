@@ -25,8 +25,9 @@ export default class Cliente {
         this.telefones = telefones
         this.produtosConsumidos = []
         this.servicosConsumidos = []
-        this.pets = []
+        this.pets = pets
     }
+    
     public get getCpf(): CPF {
         return this.cpf
     }
@@ -37,7 +38,7 @@ export default class Cliente {
     public get getRgs(): Array<RG> {
         return this.rgs
     }
-    public set setRgs(rgsNovos: RG[]){
+    public set setRgs(rgsNovos: RG[]) {
         this.rgs = rgsNovos
     }
 
@@ -48,37 +49,39 @@ export default class Cliente {
     public get getTelefones(): Array<Telefone> {
         return this.telefones
     }
-    public set setTelefones(novosTelefones: Telefone[]){
+    public set setTelefones(novosTelefones: Telefone[]) {
         this.telefones = novosTelefones
     }
 
     public get getProdutosConsumidos(): Array<Produto> {
         return this.produtosConsumidos
     }
-    public set setProdutosConsumidos(novosProdutos: Produto[]){
-        this.produtosConsumidos = novosProdutos
+    public set setProdutosConsumidos(novosProdutos: Produto[]) {
+        this.produtosConsumidos = novosProdutos.map(produto => Object.assign({}, produto))
     }
     
     public get getServicosConsumidos(): Array<Servico> {
         return this.servicosConsumidos
     }
-    public set setServicosConsumidos(novosServicos: Servico[]){
-        this.servicosConsumidos = novosServicos
+    public set setServicosConsumidos(novosServicos: Servico[]) {
+        this.servicosConsumidos = novosServicos.map(servico => Object.assign({}, servico))
     }
 
-    public get getPets(): Array<Pet>{
+    public get getPets(): Array<Pet> {
         return this.pets
     }
-    public getPet(codigoPet: number): Pet | undefined {
-        let petAlvo = this.pets.find(pet => pet.getId === codigoPet)
-        if(petAlvo){
-            return petAlvo
-        } else {
-            console.log('Pet não encontrado')
-        }
-        
+    public getPet(idPet: number): Pet | undefined {
+        return this.pets.find(pet => pet.getId === idPet)
     }
-    public set setPets(novosPets: Pet[]){
+    public set setPets(novosPets: Pet[]) {
         this.pets = novosPets
+    }
+
+    public adicionarProdutoConsumido(produto: Produto): void {
+        this.produtosConsumidos.push(Object.assign({}, produto))
+    }
+
+    public adicionarServicoConsumido(servico: Servico): void {
+        this.servicosConsumidos.push(Object.assign({}, servico))
     }
 }

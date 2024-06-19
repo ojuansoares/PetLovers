@@ -1,18 +1,48 @@
-import React from "react";
-import "../styles/bg14.css"
-import "../index.css"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/bg14.css";
+import "../index.css";
 
 export default function Top10ClientesQuantidade() {
-    const renderCliente = (cliente, total) => {
-        return (
-            <div className="list-group-item list-group-item-action d-flex justify-content-between">
-                <div>
-                    <p><strong>ID & Cliente:</strong> <span className="cliente-text">{cliente}</span></p>
-                    <p><strong>Total Consumido:</strong> <span className="total-text">{total}</span></p>
-                </div>
+    const [topClientes, setTopClientes] = useState([]);
+
+    useEffect(() => {
+        const fetchCompras = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/compras");
+                const compras = response.data;
+
+                const clienteComprasMap = compras.reduce((acc, compra) => {
+                    const cliente = `${compra.clienteNome} (${compra.clienteCpf})`;
+                    if (!acc[cliente]) {
+                        acc[cliente] = 0;
+                    }
+                    acc[cliente] += 1;
+                    return acc;
+                }, {});
+
+                const sortedClientes = Object.entries(clienteComprasMap)
+                    .sort(([, a], [, b]) => b - a)
+                    .slice(0, 10)
+                    .map(([cliente, total]) => ({ cliente, total }));
+
+                setTopClientes(sortedClientes);
+            } catch (error) {
+                console.error("Erro ao carregar dados de compras:", error);
+            }
+        };
+
+        fetchCompras();
+    }, []);
+
+    const renderCliente = (cliente, total, key) => (
+        <div key={key} className="list-group-item list-group-item-action d-flex justify-content-between">
+            <div>
+                <p><strong>Nome & CPF:</strong> <span className="cliente-text">{cliente}</span></p>
+                <p><strong>Total Consumido:</strong> <span className="total-text">{total}</span></p>
             </div>
-        )
-    }
+        </div>
+    );
 
     return (
         <div>
@@ -20,19 +50,10 @@ export default function Top10ClientesQuantidade() {
             <div className="container-fluid fundo-escuro">
                 <div className="list-group">
                     <h2>Top 10 clientes que mais consumiram (Quantidade):</h2>
-                    <hr></hr>
-                    {renderCliente("(11) Rafael", 6)}
-                    {renderCliente("(3) Juan", 4)}
-                    {renderCliente("(7) Lucas", 4)}
-                    {renderCliente("(9) Gabriel", 4)}
-                    {renderCliente("(1) Sheila", 3)}
-                    {renderCliente("(6) Ana", 3)}
-                    {renderCliente("(10) Luisa", 3)}
-                    {renderCliente("(2) Gilberto", 2)}
-                    {renderCliente("(4) Maria", 2)}
-                    {renderCliente("(5) Pedro", 2)}
+                    <hr />
+                    {topClientes.map(({ cliente, total }) => renderCliente(cliente, total, cliente))}
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -11,6 +11,10 @@ export default class Servico {
         this.valor = valor;
     }
 
+    public clone(): Servico {
+        return new Servico(this.getId, this.getNome, this.getDescricao, this.getValor);
+    }
+
     public get getId() {
         return this.id
     }
