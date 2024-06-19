@@ -34,13 +34,6 @@ Node.js instalado em sua máquina. Se você não tem, pode baixar aqui.
 
 # Passo a passo
 
-- Abra o terminal.
-
-- Clone o repositório do projeto.
-  ``` bash
-  git clone https://github.com/ojuansoares/atv1.git
-  ```
-
 - Instale o npm
   ``` bash
   npm install
