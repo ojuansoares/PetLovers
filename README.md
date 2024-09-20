@@ -1,6 +1,6 @@
-# Projeto C4P
+# ATV5 - Projeto completo
 
-## Resumo do Projeto
+## Resumo
 
 Este projeto consiste na criação de uma aplicação web completa utilizando a biblioteca React para o front-end e Node.js/Express para o back-end. A aplicação é uma SPA (Single Page Application) projetada para atender aos requisitos de gerenciamento de produtos, clientes e serviços da empresa C4P.
 
